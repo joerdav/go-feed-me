@@ -1,0 +1,15 @@
+{% package templates %}
+
+{% import "container/types" %}
+
+{% templ NavTemplate(apps []types.AppConfig) %}
+    <nav>
+        <ul>
+            {% for _, a := range apps %}
+                <li>
+                    <a href={%= a.Url %}>{%= a.Name %}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+{% endtempl %}

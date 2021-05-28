@@ -1,0 +1,9 @@
+[[app]]
+name = "Hello"
+url = "/helloworld"
+default = true
+
+[[app]]
+name = "About"
+url = "/someotherurl"
+default = false
