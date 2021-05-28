@@ -4,6 +4,7 @@
 
 {% templ NavTemplate(apps []types.AppConfig) %}
     <nav>
+        <h1>{%= "Go Feed Me" %}</h1>
         <ul>
             {% for _, a := range apps %}
                 <li>

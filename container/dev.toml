@@ -1,9 +1,4 @@
 [[app]]
-name = "Hello"
-url = "/helloworld"
+name = "Browse"
+url = "http://localhost:8085/restaurants"
 default = true
-
-[[app]]
-name = "About"
-url = "/someotherurl"
-default = false

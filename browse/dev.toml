@@ -1,0 +1,2 @@
+ContentBaseUrl = "http://localhost:8082/content"
+BrowseBaseUrl = "http://localhost:8085"

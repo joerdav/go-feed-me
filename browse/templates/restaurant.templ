@@ -1,0 +1,16 @@
+{% package templates %}
+
+{% import "browse/types" %}
+
+{% templ RestaurantComponent(c types.Config, r types.Restaurant) %}
+    <turbo-frame id="container">
+        <section>
+            <aside>
+                <img src={%= c.ContentBaseUrl + r.ImageSrc %} alt={%= r.ImageDescription %} />
+                <h3>{%= r.Name %}</h3>
+                <p><strong>{%= r.PriceRange %}</strong></p>
+                <p>{%= r.Description %}</p>
+            </aside>
+        </section>
+    </turbo-frame>
+{% endtempl %}

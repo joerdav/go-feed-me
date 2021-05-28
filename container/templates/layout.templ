@@ -11,11 +11,8 @@
         <script type="module">{%! Raw("import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';") %}</script>
 	</head>
 	<body>
-		<header>
-			{%! NavTemplate(c.Apps) %}
-		</header>
 		<main>
-			<hr />
+			{%! NavTemplate(c.Apps) %}
 			<turbo-frame id="container" src={%= c.GetDefaultApp().Url %}>
 			</turbo-frame>
 		</main>
