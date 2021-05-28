@@ -1,5 +1,5 @@
 Listen = ":80"
 [[app]]
 name = "Browse"
-url = "http://localhost/restaurants"
+url = "http://localhost/browse/restaurants"
 default = true

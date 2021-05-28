@@ -10,10 +10,10 @@ COPY go.sum /src/.
 
 RUN go mod download
 
+COPY . /src/.
+
 RUN go mod verify
 RUN go mod vendor
-
-COPY . /src/.
 
 RUN go build -o /src/tmp/cmd ./cmd
 EXPOSE 80

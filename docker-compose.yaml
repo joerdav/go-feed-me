@@ -1,10 +1,29 @@
+version: "3.9"
 services:
     browse:
-        build: ./browse
+        build:
+            context: ./browse
+            dockerfile: dev.Dockerfile
+        env_file:
+          - 'variables.env'
+        volumes:
+        - ./browse/:/app
     content:
-        build: ./content
+        build:
+            context: ./content
+            dockerfile: dev.Dockerfile
+        env_file:
+          - 'variables.env'
+        volumes:
+        - ./content/:/app
     container:
-        build: ./container
+        build:
+            context: ./container
+            dockerfile: dev.Dockerfile
+        env_file:
+          - 'variables.env'
+        volumes:
+        - ./container/:/app
     proxy:
         build: ./proxy
         ports:

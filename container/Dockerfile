@@ -4,7 +4,7 @@ FROM golang:latest
 ENV GO111MODULE=on
 ENV GOFLAGS=-mod=vendor
 
-RUN go get -u github.com/a-h/templ/cmd
+RUN go get -u github.com/a-h/templ/cmd@v0.0.88
 
 WORKDIR /src
 COPY go.mod /src/.
