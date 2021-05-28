@@ -23,7 +23,8 @@ func Run() {
 
 	fmt.Println("config loaded.")
 
-	r := mux.NewRouter()
+	r := mux.NewRouter().
+		PathPrefix("/browse")
 
 	r.Handle("/restaurant/{id}", hothandler.New(RestaurantHandler{Config: c})).Methods("GET", "OPTIONS")
 	r.Handle("/restaurants", hothandler.New(ListerHandler{Config: c})).Methods("GET", "OPTIONS")

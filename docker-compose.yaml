@@ -1,0 +1,11 @@
+services:
+    browse:
+        build: ./browse
+    content:
+        build: ./content
+    container:
+        build: ./container
+    proxy:
+        build: ./proxy
+        ports:
+            - "80:80"
