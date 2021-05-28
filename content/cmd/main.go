@@ -1,7 +1,10 @@
 package main
 
-import "content/app"
+import (
+	"content/app"
+	"os"
+)
 
 func main() {
-	app.Run()
+	app.Run(os.Getenv("env"))
 }

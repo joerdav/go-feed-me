@@ -12,19 +12,26 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func Run() {
+func Run(env string) {
 	var c types.Config
+
+	config := "local.toml"
+
+	if env != "" {
+		config = env + ".toml"
+	}
 
 	fmt.Println("reading config...")
 
-	if _, err := toml.DecodeFile("dev.toml", &c); err != nil {
+	if _, err := toml.DecodeFile(config, &c); err != nil {
 		log.Fatal(err)
 	}
 
 	fmt.Println("config loaded.")
 
 	r := mux.NewRouter().
-		PathPrefix("/browse")
+		PathPrefix("/browse").
+		Subrouter()
 
 	r.Handle("/restaurant/{id}", hothandler.New(RestaurantHandler{Config: c})).Methods("GET", "OPTIONS")
 	r.Handle("/restaurants", hothandler.New(ListerHandler{Config: c})).Methods("GET", "OPTIONS")
@@ -33,7 +40,7 @@ func Run() {
 	methods := handlers.AllowedMethods([]string{"GET", "OPTIONS"})
 	headers := handlers.AllowedHeaders([]string{"turbo-frame"})
 
-	err := http.ListenAndServe(":8085", handlers.CORS(corsObj, headers, methods)(r))
+	err := http.ListenAndServe(c.Listen, handlers.CORS(corsObj, headers, methods)(r))
 
 	log.Fatal(err)
 }

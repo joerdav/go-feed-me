@@ -2,6 +2,7 @@ package app
 
 import (
 	"fmt"
+	"go/types"
 	"log"
 	"net/http"
 
@@ -18,7 +19,23 @@ func loggingMiddleware(next http.Handler) http.Handler {
 	})
 }
 
-func Run() {
+func Run(env string) {
+	var c types.Config
+
+	config := "local.toml"
+
+	if env != "" {
+		config = env + ".toml"
+	}
+
+	fmt.Println("reading config...")
+
+	if _, err := toml.DecodeFile(config, &c); err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("config loaded.")
+
 	r := mux.NewRouter().
 		PathPrefix("/content").
 		Subrouter()
@@ -29,7 +46,7 @@ func Run() {
 
 	r.Use(loggingMiddleware)
 
-	err := http.ListenAndServe(":8082", r)
+	err := http.ListenAndServe(c.Listen, r)
 
 	log.Fatal(err)
 }

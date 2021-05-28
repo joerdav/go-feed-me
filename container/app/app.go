@@ -6,37 +6,33 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"strconv"
 
 	"github.com/BurntSushi/toml"
 	"github.com/gorilla/mux"
 )
 
-func Run() {
-	r := mux.NewRouter()
-
+func Run(env string) {
 	var c types.Config
+
+	config := "local.toml"
+
+	if env != "" {
+		config = env + ".toml"
+	}
 
 	fmt.Println("reading config...")
 
-	if _, err := toml.DecodeFile("dev.toml", &c); err != nil {
+	if _, err := toml.DecodeFile(config, &c); err != nil {
 		log.Fatal(err)
 	}
 
 	fmt.Println("config loaded.")
-	fmt.Println(strconv.Itoa(len(c.Apps)) + " apps found")
 
-	for _, a := range c.Apps {
-		fmt.Print(a.Name + " " + a.Url)
-		if a.Default {
-			fmt.Println(" Default")
-		}
-		fmt.Println()
-	}
+	r := mux.NewRouter()
 
 	r.Handle("/", hothandler.New(HomeHandler{Config: c}))
 
-	err := http.ListenAndServe(":80", r)
+	err := http.ListenAndServe(c.Listen, r)
 
 	log.Fatal(err)
 }

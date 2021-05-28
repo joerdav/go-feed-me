@@ -1,7 +1,8 @@
 package types
 
 type Config struct {
-	Apps []AppConfig `toml:"app"`
+	Apps   []AppConfig `toml:"app"`
+	Listen string
 }
 
 func (c Config) GetDefaultApp() AppConfig {
