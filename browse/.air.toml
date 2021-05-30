@@ -13,7 +13,7 @@ full_bin = "./tmp/app/cmd"
 # This log file places in your tmp_dir.
 log = "air_errors.log"
 # Watch these filename extensions.
-include_ext = ["go", "yaml", "templ"]
+include_ext = ["go", "yaml", "templ", "toml"]
 # Ignore these filename extensions or directories.
 exclude_dir = ["tmp"]
 exclude_regex = ["_templ.go"]

@@ -8,7 +8,7 @@
             {% for _, r := range rs %}
                 <aside>
                     <a href={%= c.BrowseBaseUrl + "/restaurant/" + r.Id %}>
-                        <img src={%= c.ContentBaseUrl + r.ImageSrc %} alt={%= r.ImageDescription %} />
+                        <img src={%= "/content" + r.ImageSrc %} alt={%= r.ImageDescription %} />
                         <h3>{%= r.Name %}</h3>
                     </a>
                     <p><strong>{%= r.PriceRange %}</strong></p>
