@@ -1,0 +1,36 @@
+version: "3.9"
+services:
+    browse:
+        build: .
+        env_file:
+          - 'variables.env'
+        volumes:
+        - ../src/browse/:/app
+    content:
+        build: .
+        env_file:
+          - 'variables.env'
+        volumes:
+        - ../src/content/:/app
+    random:
+        build: .
+        env_file:
+          - 'variables.env'
+        volumes:
+        - ../src/random/:/app
+    details:
+        build: .
+        env_file:
+          - 'variables.env'
+        volumes:
+        - ../src/details/:/app
+    container:
+        build: .
+        env_file:
+          - 'variables.env'
+        volumes:
+        - ../src/container/:/app
+    proxy:
+        build: ../src/proxy
+        ports:
+            - "80:80"

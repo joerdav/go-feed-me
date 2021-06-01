@@ -6,4 +6,4 @@ default = true
 [[app]]
 name = "Random"
 url = "http://localhost/random"
-default = true
+default = false
