@@ -16,6 +16,22 @@ services:
           - 'variables.env'
         volumes:
         - ./content/:/app
+    random:
+        build:
+            context: ./random
+            dockerfile: dev.Dockerfile
+        env_file:
+          - 'variables.env'
+        volumes:
+        - ./random/:/app
+    details:
+        build:
+            context: ./details
+            dockerfile: dev.Dockerfile
+        env_file:
+          - 'variables.env'
+        volumes:
+        - ./details/:/app
     container:
         build:
             context: ./container

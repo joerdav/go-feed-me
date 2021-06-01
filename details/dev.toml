@@ -1,0 +1,3 @@
+ContentBaseUrl = "http://content/content"
+BrowseBaseUrl = "/browse"
+Listen = ":80"

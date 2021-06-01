@@ -1,8 +1,8 @@
 package app
 
 import (
-	"browse/hothandler"
-	"browse/types"
+	"details/hothandler"
+	"details/types"
 	"fmt"
 	"log"
 	"net/http"
@@ -30,10 +30,10 @@ func Run(env string) {
 	fmt.Println("config loaded.")
 
 	r := mux.NewRouter().
-		PathPrefix("/browse").
+		PathPrefix("/details").
 		Subrouter()
 
-	r.Handle("/restaurants", hothandler.New(ListerHandler{Config: c})).Methods("GET", "OPTIONS")
+	r.Handle("/restaurant/{id}", hothandler.New(RestaurantHandler{Config: c})).Methods("GET", "OPTIONS")
 
 	corsObj := handlers.AllowedOrigins([]string{"*"})
 	methods := handlers.AllowedMethods([]string{"GET", "OPTIONS"})

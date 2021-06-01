@@ -1,11 +1,11 @@
 package app
 
 import (
-	"browse/hothandler"
-	"browse/restaurants"
-	"browse/templates"
-	"browse/types"
 	"context"
+	"details/hothandler"
+	"details/restaurants"
+	"details/templates"
+	"details/types"
 	"errors"
 	"net/http"
 

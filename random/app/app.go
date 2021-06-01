@@ -1,11 +1,10 @@
 package app
 
 import (
-	"browse/hothandler"
-	"browse/types"
 	"fmt"
 	"log"
 	"net/http"
+	"random/types"
 
 	"github.com/BurntSushi/toml"
 	"github.com/gorilla/handlers"
@@ -29,11 +28,9 @@ func Run(env string) {
 
 	fmt.Println("config loaded.")
 
-	r := mux.NewRouter().
-		PathPrefix("/browse").
-		Subrouter()
+	r := mux.NewRouter()
 
-	r.Handle("/restaurants", hothandler.New(ListerHandler{Config: c})).Methods("GET", "OPTIONS")
+	r.Handle("/random", RandomHandler{Config: c}).Methods("GET", "OPTIONS")
 
 	corsObj := handlers.AllowedOrigins([]string{"*"})
 	methods := handlers.AllowedMethods([]string{"GET", "OPTIONS"})
