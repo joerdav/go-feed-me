@@ -30,7 +30,7 @@ func Run(env string) {
 	fmt.Println("config loaded.")
 
 	r := mux.NewRouter().
-		PathPrefix("/details").
+		PathPrefix("/apps/details").
 		Subrouter()
 
 	r.Handle("/restaurant/{id}", hothandler.New(RestaurantHandler{Config: c})).Methods("GET", "OPTIONS")

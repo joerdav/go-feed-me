@@ -2,7 +2,7 @@
 
 {% import "container/types" %}
 
-{% templ LayoutTemplate(c types.Config) %}
+{% templ LayoutTemplate(url string, c types.Config) %}
 <html>
 	<head>
 		<title>{%= "Go Feed Me" %}</title>
@@ -13,7 +13,7 @@
 	<body>
 		<main>
 			{%! NavTemplate(c.Apps) %}
-			<turbo-frame id="container" src={%= c.GetDefaultApp().Url %}>
+			<turbo-frame id="container" src={%= url %}>
 			</turbo-frame>
 		</main>
 	</body>

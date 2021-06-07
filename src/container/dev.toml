@@ -1,9 +1,9 @@
 Listen = ":80"
 [[app]]
 name = "Browse"
-url = "http://localhost/browse/restaurants"
+url = "/browse/restaurants"
 default = true
 [[app]]
 name = "Random"
-url = "http://localhost/random"
+url = "/random"
 default = false

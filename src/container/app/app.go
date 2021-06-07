@@ -30,7 +30,7 @@ func Run(env string) {
 
 	r := mux.NewRouter()
 
-	r.Handle("/", hothandler.New(HomeHandler{Config: c}))
+	r.PathPrefix("/").Handler(hothandler.New(HomeHandler{Config: c}))
 
 	err := http.ListenAndServe(c.Listen, r)
 

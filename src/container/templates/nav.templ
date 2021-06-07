@@ -3,12 +3,12 @@
 {% import "container/types" %}
 
 {% templ NavTemplate(apps []types.AppConfig) %}
-    <nav>
+    <nav data="1">
         <h1>{%= "Go Feed Me" %}</h1>
         <ul>
             {% for _, a := range apps %}
                 <li>
-                    <a href={%= a.Url %}  data-turbo-frame="container">{%= a.Name %}</a>
+                    <a href={%= "/apps" + a.Url %}  data-turbo-frame="container">{%= a.Name %}</a>
                 </li>
             {% endfor %}
         </ul>

@@ -7,7 +7,7 @@
         <section>
             {% for _, r := range rs %}
                 <aside>
-                    <a href={%= "details/restaurant/" + r.Id %}>
+                    <a target="_top" href={%= "/details/restaurant/" + r.Id %}>
                         <img src={%= "/content" + r.ImageSrc %} alt={%= r.ImageDescription %} />
                         <h3>{%= r.Name %}</h3>
                     </a>
