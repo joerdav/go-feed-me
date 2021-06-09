@@ -1,0 +1,29 @@
+{% package templates %}
+
+{% import "basket/types" %}
+{% import "strconv" %}
+
+{% templ BasketComponent(b types.Basket) %}
+<turbo-stream action="update" target="basket">
+    <template>
+		<table>
+				<tr>
+					<th>{%= "Restaurant" %}</th>
+					<th>{%= "Item" %}</th>
+					<th>{%= "Quantity" %}</th>
+					<th>{%= "Price" %}</th>
+				</tr>
+				{% for _, r := range b.Restaurants %}
+					{% for _, i := range r.Items %}
+						<tr>
+							<td>{%= r.Name %}</td>
+							<td>{%= i.Name %}</td>
+							<td>{%= strconv.Itoa(i.Quantity) %}</td>
+							<td>{%= strconv.Itoa(i.Price * i.Quantity) %}</td>
+						</tr>
+					{% endfor %}
+				{% endfor %}
+		</table>
+	</template>
+</turbo-stream>
+{% endtempl %}

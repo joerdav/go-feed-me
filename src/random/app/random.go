@@ -24,7 +24,7 @@ func (h RandomHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	rand.Seed(time.Now().Unix())
 
-	url := fmt.Sprintf("/details/restaurant/%s", rs[rand.Intn(len(rs))].Id)
+	url := fmt.Sprintf("/apps/details/restaurant/%s", rs[rand.Intn(len(rs))].Id)
 
 	http.Redirect(w, r, url, http.StatusSeeOther)
 }

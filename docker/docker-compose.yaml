@@ -18,6 +18,12 @@ services:
           - 'variables.env'
         volumes:
         - ../src/random/:/app
+    basket:
+        build: .
+        env_file:
+          - 'variables.env'
+        volumes:
+        - ../src/basket/:/app
     details:
         build: .
         env_file:

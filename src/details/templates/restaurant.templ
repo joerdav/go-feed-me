@@ -5,7 +5,6 @@
 
 {% templ RestaurantComponent(c types.Config, r types.Restaurant) %}
     <turbo-frame id="container">
-        <a target="_top" href="/browse/restaurants">{%= "Back" %}</a>
         <section>
             <aside>
                 <img src={%= "/content" + r.ImageSrc %} alt={%= r.ImageDescription %} />
@@ -14,12 +13,17 @@
                 <p>{%= r.Description %}</p>
             </aside>
             <aside>
-                <h3>{%= "Menu" %}</h3>
-                {% for _, i := range r.Menu %}
-                    <h4>{%= i.Name %}<small>{%= "    £" %}{%= strconv.Itoa(i.Price) %}</small></h4>
-                    <input type="number" value="0" min="0" max="10" />
-                {% endfor %}
-                <button>{%= "Add to basket" %}</button>
+                <form action="/apps/basket/create" method="PUT">
+                    <input name="name" value={%= r.Name %} hidden="true"/>
+                    <input name="id" value={%= r.Id %} hidden="true"/>
+                    <h3>{%= "Menu" %}</h3>
+                    {% for x, i := range r.Menu %}
+                        <h4>{%= i.Name %}<small>{%= "    £" %}{%= strconv.Itoa(i.Price) %}</small></h4>
+                        <input type="number" value="0" min="0" max="10" name={%= "items."+strconv.Itoa(x)+".quantity" %} />
+                        <input name={%= "items."+strconv.Itoa(x)+".id" %} value={%= strconv.Itoa(x) %} hidden="true"/>
+                    {% endfor %}
+                    <button>{%= "Add to basket" %}</button>
+                </form>
             </aside>
         </section>
     </turbo-frame>

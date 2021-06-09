@@ -5,7 +5,7 @@ RUN apt update && apt upgrade -y && \
     apt install -y git \
     make openssh-client
 
-RUN go get -u github.com/a-h/templ/cmd@v0.0.88
+RUN go install github.com/a-h/templ/cmd/templ@latest
 
 WORKDIR /app 
 

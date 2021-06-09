@@ -1,10 +1,11 @@
 package app
 
 import (
+	"basket/hothandler"
+	"basket/types"
 	"fmt"
 	"log"
 	"net/http"
-	"random/types"
 
 	"github.com/BurntSushi/toml"
 	"github.com/gorilla/handlers"
@@ -28,12 +29,14 @@ func Run(env string) {
 
 	fmt.Println("config loaded.")
 
-	r := mux.NewRouter()
+	r := mux.NewRouter().
+		PathPrefix("/apps/basket").
+		Subrouter()
 
-	r.Handle("/apps/random", RandomHandler{Config: c}).Methods("GET", "OPTIONS")
+	r.Handle("/create", hothandler.New(UpdateBasketHandler{Config: c})).Methods("PUT")
 
 	corsObj := handlers.AllowedOrigins([]string{"*"})
-	methods := handlers.AllowedMethods([]string{"GET", "OPTIONS"})
+	methods := handlers.AllowedMethods([]string{"PUT", "OPTIONS"})
 	headers := handlers.AllowedHeaders([]string{"turbo-frame"})
 
 	err := http.ListenAndServe(c.Listen, handlers.CORS(corsObj, headers, methods)(r))
