@@ -12,6 +12,8 @@ import (
 	"github.com/gorilla/mux"
 )
 
+var inmemorybasket = map[string]types.Restaurant{}
+
 func Run(env string) {
 	var c types.Config
 
@@ -30,10 +32,11 @@ func Run(env string) {
 	fmt.Println("config loaded.")
 
 	r := mux.NewRouter().
-		PathPrefix("/apps/basket").
+		PathPrefix("/apps").
 		Subrouter()
 
-	r.Handle("/create", hothandler.New(UpdateBasketHandler{Config: c})).Methods("PUT")
+	r.Handle("/basket", hothandler.New(UpdateBasketHandler{Config: c})).Methods("PUT")
+	r.Handle("/basket", hothandler.New(GetBasketHandler{Config: c})).Methods("GET")
 
 	corsObj := handlers.AllowedOrigins([]string{"*"})
 	methods := handlers.AllowedMethods([]string{"PUT", "OPTIONS"})

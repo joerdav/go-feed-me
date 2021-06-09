@@ -63,10 +63,16 @@ func (h UpdateBasketHandler) HandleRequest(w http.ResponseWriter, r *http.Reques
 		fmt.Println(restaurant.Items[itemid].Name)
 	}
 
+	inmemorybasket[restaurant.Id] = restaurant
+
+	basket := []types.Restaurant{}
+
+	for _, res := range inmemorybasket {
+		basket = append(basket, res)
+	}
+
 	return nil, types.Basket{
-		Restaurants: []types.Restaurant{
-			restaurant,
-		},
+		Restaurants: basket,
 	}
 }
 

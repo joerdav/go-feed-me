@@ -15,12 +15,14 @@
 				</tr>
 				{% for _, r := range b.Restaurants %}
 					{% for _, i := range r.Items %}
-						<tr>
-							<td>{%= r.Name %}</td>
-							<td>{%= i.Name %}</td>
-							<td>{%= strconv.Itoa(i.Quantity) %}</td>
-							<td>{%= strconv.Itoa(i.Price * i.Quantity) %}</td>
-						</tr>
+                        {% if i.Quantity != 0 %}
+      					<tr>
+      						<td>{%= r.Name %}</td>
+      						<td>{%= i.Name %}</td>
+      						<td>{%= strconv.Itoa(i.Quantity) %}</td>
+      						<td>{%= strconv.Itoa(i.Price * i.Quantity) %}</td>
+      					</tr>
+                        {% endif %}
 					{% endfor %}
 				{% endfor %}
 		</table>

@@ -12,13 +12,15 @@
 	</head>
 	<body>
 		<main>
-			{%! NavTemplate(c.Apps) %}
-			<turbo-frame id="container" src={%= url %}>
-			</turbo-frame>
+			<article>
+				{%! NavTemplate(c.Apps) %}
+				<turbo-frame id="container" src={%= url %}>
+				</turbo-frame>
+			</article>
 		</main>
-		<aside>
-			<div data-turbo-permanent="true" id="basket"></div>
-		</aside>
+        <section>
+        	<turbo-frame data-turbo-permanent="true" id="basket" src="/apps/basket"></turbo-frame>
+        </section>
 	</body>
 </html>
 {% endtempl %}
