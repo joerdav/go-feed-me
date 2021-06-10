@@ -14,7 +14,7 @@ resource "google_cloud_run_service" "run_service" {
 
     lifecycle {
         ignore_changes = [
-            template.spec.containers.0.image,
+            template.0.spec.containers.0.image,
         ]
     }
 }
