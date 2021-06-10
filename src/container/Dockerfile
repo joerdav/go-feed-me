@@ -2,9 +2,8 @@ FROM golang:latest
 
 
 ENV GO111MODULE=on
-ENV GOFLAGS=-mod=vendor
 
-RUN go get -u github.com/a-h/templ/cmd@v0.0.88
+RUN go install github.com/a-h/templ/cmd/templ@latest
 
 WORKDIR /src
 COPY go.mod /src/.
@@ -14,7 +13,7 @@ RUN go mod download
 
 COPY . /src/.
 
-RUN $(go env GOPATH)/bin/cmd generate
+RUN templ generate
 
 RUN go mod verify
 RUN go mod vendor

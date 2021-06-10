@@ -2,7 +2,6 @@ FROM golang:latest
 
 
 ENV GO111MODULE=on
-ENV GOFLAGS=-mod=vendor
 
 WORKDIR /src
 COPY go.mod /src/.
