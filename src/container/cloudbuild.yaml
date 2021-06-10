@@ -22,8 +22,6 @@ steps:
     'run',
     'services',
     'update',
-    'gfm-${_NAME}',
+    'gfm-${_NAME}-run',
     '--image=gcr.io/$PROJECT_ID/gfm-${_NAME}:$COMMIT_SHA',
-    '--platform=managed',
-    '--region=europe-west1',
     ]
