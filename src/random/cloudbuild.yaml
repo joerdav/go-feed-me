@@ -1,13 +1,19 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
+  dir: 'src/${_NAME}'
   args: [
     'build',
-    '-t', 'gcr.io/${_NAME}/gfm-random:latest', 
-    '-t', 'gcr.io/${_NAME}/gfm-random:$COMMIT_SHA', 
+    '-t', 'gcr.io/${_NAME}/gfm-${_NAME}:latest', 
+    '-t', 'gcr.io/${_NAME}/gfm-${_NAME}:$COMMIT_SHA', 
     '.'
     ]
 - name: 'gcr.io/cloud-builders/docker'
   args: [
     'push',
-    'gcr.io/$PROJECT_ID/gfm-random'
+    'gcr.io/$PROJECT_ID/gfm-${_NAME}:$COMMIT_SHA'
+    ]
+- name: 'gcr.io/cloud-${_NAME}/docker'
+  args: [
+    'push',
+    'gcr.io/$PROJECT_ID/gfm-${_NAME}:latest'
     ]
