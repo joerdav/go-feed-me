@@ -8,12 +8,11 @@ resource "google_cloud_run_service" "run_service" {
         spec {
             containers {
                 image = "us-docker.pkg.dev/cloudrun/container/hello"
+                ports {
+                    container_port = "80"
+                }
             }
         }
-    }
-
-    ports {
-        container_port = "80"
     }
 
     lifecycle {
