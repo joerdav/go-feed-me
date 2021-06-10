@@ -24,4 +24,6 @@ steps:
     'update',
     'gfm-${_NAME}',
     '--image=gcr.io/$PROJECT_ID/gfm-${_NAME}:$COMMIT_SHA',
+    '--platform=managed',
+    '--region=europe-west1',
     ]
