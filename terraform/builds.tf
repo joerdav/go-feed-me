@@ -46,27 +46,21 @@ resource "google_cloudbuild_trigger" "infra" {
     build {
       step {
         dir  = "terraform"
+        id   = "tf init"
+        name = "hashicorp/terraform:1.0.0"
+        args = ["init"]
+      }
+      step {
+        dir  = "terraform"
         id   = "tf plan"
-        name = "hashicorp/terraform:0.11.14"
-        entrypoint = "sh"
-        args = [
-          "-c",
-          <<EOT
-          terraform plan
-          EOT
-          ]
+        name = "hashicorp/terraform:1.0.0"
+        args = ["plan"]
       }
       step {
         dir  = "terraform"
         id   = "tf apply"
-        name = "hashicorp/terraform:0.11.14"
-        entrypoint = "sh"
-        args = [
-          "-c",
-          <<EOT
-          terraform apply -auto-approve
-          EOT
-          ]
+        name = "hashicorp/terraform:1.0.0"
+        args = ["apply", "-auto-approve"]
       }
     }
 }
