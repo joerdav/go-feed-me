@@ -14,7 +14,7 @@ resource "google_cloudbuild_trigger" "service" {
     name = "gfm-${each.value}-build"
 
     github {
-      owner = "joe-davidson1802"
+      owner = "Joe-Davidson1802"
       name  = "go-feed-me"
       push {
         branch = "^main$"
@@ -23,36 +23,50 @@ resource "google_cloudbuild_trigger" "service" {
 
     included_files = ["src/${each.value}/**"]
 
+    substitutions = {
+      _NAME = each.value
+    }
+
+    filename = "src/${each.value}/cloudbuild.yaml"
+}
+
+resource "google_cloudbuild_trigger" "infra" {
+    name = "gfm-infra-build"
+
+    github {
+      owner = "joe-davidson1802"
+      name  = "go-feed-me"
+      push {
+        branch = "^main$"
+      }
+    }
+
+    included_files = ["src/terraform/**"]
+
     build {
       step {
-        name = "gcr.io/cloud-builders/docker"
+        dir  = "src/terraform"
+        id   = "tf plan"
+        name = "hashicorp/terraform:0.11.14"
+        entrypoint = "sh"
         args = [
-          "buid", 
-          "--tag=gcr.io/$PROJECT_ID/gfm-$${_NAME}:latest",
-          "--tag=gcr.io/$PROJECT_ID/gfm-$${_NAME}:$COMMIT_SHA",
-          "."
+          "-c",
+          <<EOT
+          terraform plan
+          EOT
           ]
-        timeout = "120s"
       }
-
       step {
-        name = "gcr.io/cloud-builders/docker"
+        dir  = "src/terraform"
+        id   = "tf plan"
+        name = "hashicorp/terraform:0.11.14"
+        entrypoint = "sh"
         args = [
-          "push", 
-          "gcr.io/$PROJECT_ID/gfm-$${_NAME}"
+          "-c",
+          <<EOT
+          terraform apply -auto-approve
+          EOT
           ]
-        timeout = "120s"
-      }
-      
-      substitutions = {
-        _NAME = each.value
-      }
-
-      artifacts {
-        images = [
-            "gcr.io/$PROJECT_ID/gfm-$${_NAME}:$COMMIT_SHA",
-            "gcr.io/$PROJECT_ID/gfm-$${_NAME}:$latest"
-        ]
       }
     }
 }
