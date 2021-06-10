@@ -34,18 +34,18 @@ resource "google_cloudbuild_trigger" "infra" {
     name = "gfm-infra-build"
 
     github {
-      owner = "joe-davidson1802"
+      owner = "Joe-Davidson1802"
       name  = "go-feed-me"
       push {
         branch = "^main$"
       }
     }
 
-    included_files = ["src/terraform/**"]
+    included_files = ["terraform/**"]
 
     build {
       step {
-        dir  = "src/terraform"
+        dir  = "terraform"
         id   = "tf plan"
         name = "hashicorp/terraform:0.11.14"
         entrypoint = "sh"
@@ -57,8 +57,8 @@ resource "google_cloudbuild_trigger" "infra" {
           ]
       }
       step {
-        dir  = "src/terraform"
-        id   = "tf plan"
+        dir  = "terraform"
+        id   = "tf apply"
         name = "hashicorp/terraform:0.11.14"
         entrypoint = "sh"
         args = [
