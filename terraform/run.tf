@@ -12,6 +12,10 @@ resource "google_cloud_run_service" "run_service" {
         }
     }
 
+    ports {
+        container_port = "80"
+    }
+
     lifecycle {
         ignore_changes = [
             template.0.spec.0.containers.0.image,

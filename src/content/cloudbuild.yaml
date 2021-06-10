@@ -20,10 +20,8 @@ steps:
 - name: 'gcr.io/cloud-builders/gcloud'
   args: [
     'run',
-    'deploy',
+    'services',
+    'update',
     'gfm-${_NAME}',
     '--image=gcr.io/$PROJECT_ID/gfm-${_NAME}:$COMMIT_SHA',
-    '--allow-unauthenticated',
-    '--port=80',
-    '--region=europe-west2',
     ]
