@@ -1,5 +1,6 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
+  dir: 'src/basket'
   args: [
     'build',
     '-t', 'gcr.io/${_NAME}/gfm-basket:latest', 
@@ -9,5 +10,5 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: [
     'push',
-    'gcr.io/$PROJECT_ID/gfm-'
+    'gcr.io/$PROJECT_ID/gfm-basket'
     ]
