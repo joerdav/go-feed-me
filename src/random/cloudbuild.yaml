@@ -22,7 +22,8 @@ steps:
     'run',
     'deploy',
     'gfm-${_NAME}',
-    '--image=gcr.io/$PROJECT_ID/gfm-${_NAME}:latest',
+    '--image=gcr.io/$PROJECT_ID/gfm-${_NAME}:$COMMIT_SHA',
     '--allow-unauthenticated',
     '--port=80',
+    '--region=europe-west2',
     ]
