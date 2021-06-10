@@ -1,0 +1,13 @@
+steps:
+- name: 'hashicorp/terraform:1.0.0'
+  id:   'terraform init'
+  dir: 'terraform'
+  args: ['init']
+- name: 'hashicorp/terraform:1.0.0'
+  id:   'terraform plan'
+  dir: 'terraform'
+  args: ['plan']
+- name: 'hashicorp/terraform:1.0.0'
+  id:   'terraform apply'
+  dir: 'terraform'
+  args: ['apply', '-auto-approve']

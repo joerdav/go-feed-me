@@ -43,24 +43,5 @@ resource "google_cloudbuild_trigger" "infra" {
 
     included_files = ["terraform/**"]
 
-    build {
-      step {
-        dir  = "terraform"
-        id   = "tf init"
-        name = "hashicorp/terraform:1.0.0"
-        args = ["init"]
-      }
-      step {
-        dir  = "terraform"
-        id   = "tf plan"
-        name = "hashicorp/terraform:1.0.0"
-        args = ["plan"]
-      }
-      step {
-        dir  = "terraform"
-        id   = "tf apply"
-        name = "hashicorp/terraform:1.0.0"
-        args = ["apply", "-auto-approve"]
-      }
-    }
+    filename = "terraform/cloudbuild.yaml"
 }
