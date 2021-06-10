@@ -2,7 +2,6 @@ provider "google" {
   project = var.project_id
   region  = "europe-west2"
   zone    = "europe-west2-a"
-  credentials = "./credentials.json"
 }
 
 resource "google_project_service" "iam" {
