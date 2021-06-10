@@ -3,6 +3,20 @@ resource "google_cloud_run_service" "run_service" {
 
     name = "gfm-${each.value}-run"
     location = "europe-west2"
+
+    template {
+        spec {
+            containers {
+                image = "us-docker.pkg.dev/cloudrun/container/hello"
+            }
+        }
+    }
+
+    lifecycle {
+        ignore_changes = [
+            template.spec.containers.0.image,
+        ]
+    }
 }
 
 data "google_iam_policy" "noauth" {
