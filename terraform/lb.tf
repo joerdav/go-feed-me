@@ -37,7 +37,7 @@ resource "google_compute_url_map" "url_map" {
 locals {
   content_backend_list = [
     {
-      content_backend = {
+      contentbackend = {
         description = ""
         groups = [
           {
