@@ -1,13 +1,13 @@
 steps:
-- name: 'hashicorp/terraform:1.0.0'
+- name: 'broadinstitute/terraform:latest'
   id:   'terraform init'
   dir: 'terraform'
   args: ['init']
-- name: 'hashicorp/terraform:1.0.0'
+- name: 'broadinstitute/terraform:latest'
   id:   'terraform plan'
   dir: 'terraform'
   args: ['plan']
-- name: 'hashicorp/terraform:1.0.0'
+- name: 'broadinstitute/terraform:latest'
   id:   'terraform apply'
   dir: 'terraform'
   entrypoint: '/bin/bash'
