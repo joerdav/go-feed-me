@@ -1,0 +1,3 @@
+ContentBaseUrl = "https://go-feed-me.joe-davidson.co.uk/content"
+BrowseBaseUrl = "/browse"
+Listen = ":80"

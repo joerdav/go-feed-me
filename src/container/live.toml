@@ -1,0 +1,9 @@
+Listen = ":80"
+[[app]]
+name = "Browse"
+url = "/browse/restaurants"
+default = true
+[[app]]
+name = "Random"
+url = "/random"
+default = false

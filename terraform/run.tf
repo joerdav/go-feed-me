@@ -11,6 +11,10 @@ resource "google_cloud_run_service" "run_service" {
                 ports {
                     container_port = "80"
                 }
+                env {
+                    name = "env"
+                    value = "live"
+                }
             }
         }
     }
