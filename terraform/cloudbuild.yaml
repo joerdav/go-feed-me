@@ -10,5 +10,5 @@ steps:
 - name: 'hashicorp/terraform:1.0.0'
   id:   'terraform apply'
   dir: 'terraform'
-  entrypoint: 'bash'
+  entrypoint: '/bin/bash'
   args: ['-c', 'sudo apk add curl && terraform apply -auto-approve']
