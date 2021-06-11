@@ -13,10 +13,9 @@ locals {
         "random"
         ]
     url_map = {
-        "/content" = "basket"
+        "/content" = "content"
         "/apps/basket" = "basket"
         "/apps/browse" = "browse"
-        "/apps/content" = "content"
         "/apps/details" = "details"
         "/apps/random" = "random"
     }
