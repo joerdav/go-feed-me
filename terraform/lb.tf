@@ -60,7 +60,7 @@ locals {
       }
       }
   ]
-  backends_list = concat([
+  backends_list = concat(local.content_backend_list, [
     for s in local.services : {
       "${s}" = {
         description = ""
@@ -84,7 +84,7 @@ locals {
         }
       }
     }
-  ], local.content_backend_list)
+  ])
 
   backends_map = { for item in local.backends_list :
     keys(item)[0] => values(item)[0]
