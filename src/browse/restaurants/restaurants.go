@@ -3,6 +3,7 @@ package restaurants
 import (
 	"browse/types"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 )
@@ -29,7 +30,7 @@ func (r RestaurantRepository) GetRestaurants() ([]types.Restaurant, error) {
 	err = decoder.Decode(&rs)
 
 	if err != nil {
-		return nil, err
+		return nil, errors.New("Failed to decode")
 	}
 
 	return rs, err
