@@ -23,7 +23,7 @@ resource "google_cloudbuild_trigger" "service" {
     filename = "src/${each.value}/cloudbuild.yaml"
 
     provisioner "local-exec" {
-      command = "curl -d '{\"branchName\":\"master\"}' -X POST -H \"Content-type: application/json\" -H \"Authorization: $(gcloud config config-helper --format='value(credential.access_token)')\" https://cloudbuild.googleapis.com/v1/${self.id}:run"
+      command = "curl -s -XPOST -H\"Content-type: application/json\" -H\"Authorization: $(gcloud config config-helper --format='value(credential.access_token)')\" https://cloudbuild.googleapis.com/v1/${self.id}:run"
     }
 }
 
