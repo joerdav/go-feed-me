@@ -1,3 +1,6 @@
+data "google_client_config" "default" {
+}
+
 resource "google_cloudbuild_trigger" "service" {
     for_each = toset(local.services)
 
@@ -18,6 +21,10 @@ resource "google_cloudbuild_trigger" "service" {
     }
 
     filename = "src/${each.value}/cloudbuild.yaml"
+
+    provisioner "local-exec" {
+      command = "curl -d '{\"branchName\":\"master\"}' -X POST -H \"Content-type: application/json\" -H \"Authorization: ${data.google_client_config.default.access_token}\" https://cloudbuild.googleapis.com/v1/${self.id}:run"
+    }
 }
 
 resource "google_cloudbuild_trigger" "infra" {
