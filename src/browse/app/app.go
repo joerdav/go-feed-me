@@ -10,7 +10,7 @@ import (
 	"github.com/BurntSushi/toml"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	import _ "github.com/motemen/go-loghttp/global"
+	_ "github.com/motemen/go-loghttp/global"
 )
 
 func Run(env string) {
