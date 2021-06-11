@@ -41,7 +41,7 @@ locals {
         description = ""
         groups = [
           {
-            group = google_compute_backend_bucket.static.id
+            group = google_compute_backend_bucket.static_backend.id
           },
         ]
         enable_cdn             = false
