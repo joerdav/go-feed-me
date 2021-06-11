@@ -10,5 +10,4 @@ steps:
 - name: 'broadinstitute/terraform:latest'
   id:   'terraform apply'
   dir: 'terraform'
-  entrypoint: '/bin/bash'
-  args: ['-c', 'sudo apk add curl && terraform apply -auto-approve']
+  args: ['apply', '-auto-approve']
