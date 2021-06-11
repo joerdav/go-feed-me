@@ -39,6 +39,8 @@ func Run(env string) {
 	methods := handlers.AllowedMethods([]string{"GET", "OPTIONS"})
 	headers := handlers.AllowedHeaders([]string{"turbo-frame"})
 
+	fmt.Printf("Listening: %s", c.Listen)
+
 	err := http.ListenAndServe(c.Listen, handlers.CORS(corsObj, headers, methods)(r))
 
 	log.Fatal(err)
