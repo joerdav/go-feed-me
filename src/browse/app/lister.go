@@ -24,7 +24,7 @@ func (h ListerHandler) HandleRequest(w http.ResponseWriter, r *http.Request) (er
 	rs, err := repo.GetRestaurants()
 
 	if err != nil {
-		return err, nil
+		return errors.New("Failed to get restaurants"), nil
 	}
 
 	return nil, types.RestaurantList{

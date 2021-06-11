@@ -3,6 +3,7 @@ package restaurants
 import (
 	"browse/types"
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
@@ -13,7 +14,11 @@ type RestaurantRepository struct {
 func (r RestaurantRepository) GetRestaurants() ([]types.Restaurant, error) {
 	var rs []types.Restaurant
 
-	resp, err := http.Get(r.Config.ContentBaseUrl + "/restaurants.json")
+	url := r.Config.ContentBaseUrl + "/restaurants.json"
+
+	fmt.Printf("Getting restaurants from: %s", url)
+
+	resp, err := http.Get(url)
 
 	if err != nil {
 		return nil, err
