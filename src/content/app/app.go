@@ -6,10 +6,26 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/http/httptest"
+	"net/http/httputil"
 
 	"github.com/BurntSushi/toml"
 	"github.com/gorilla/mux"
 )
+
+func logHandler(han http.Handler) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		x, err := httputil.DumpRequest(r, true)
+		if err != nil {
+			http.Error(w, fmt.Sprint(err), http.StatusInternalServerError)
+			return
+		}
+		log.Println(fmt.Sprintf("%q", x))
+		rec := httptest.NewRecorder()
+		han.ServeHTTP(rec, r)
+		log.Println(fmt.Sprintf("%q", rec.Body))
+	}
+}
 
 func Run(env string) {
 	var c types.Config
@@ -34,7 +50,7 @@ func Run(env string) {
 
 	r.
 		PathPrefix("/").
-		Handler(http.StripPrefix("/content/", http.FileServer(http.Dir("./public/"))))
+		Handler(logHandler(http.StripPrefix("/content/", http.FileServer(http.Dir("./public/")))))
 
 	files, err := ioutil.ReadDir("./")
 	if err != nil {
