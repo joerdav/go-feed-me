@@ -36,7 +36,8 @@ resource "google_compute_url_map" "url_map" {
 
 locals {
   content_backend_list = [
-    content_backend = {
+    {
+      content_backend = {
         description = ""
         groups = [
           {
@@ -56,6 +57,7 @@ locals {
           enable      = false
           sample_rate = null
         }
+      }
       }
   ]
   backends_list = concat([
