@@ -43,13 +43,11 @@ func Run(env string) {
 
 	fmt.Println("config loaded.")
 
-	r := mux.NewRouter().
-		PathPrefix("/content").
-		Subrouter()
+	r := mux.NewRouter()
 
 	r.
-		PathPrefix("/").
-		Handler(logHandler(http.StripPrefix("/content", http.FileServer(http.Dir("/src/public/")))))
+		PathPrefix("/content/").
+		Handler(logHandler(http.StripPrefix("/content/", http.FileServer(http.Dir("./public/")))))
 
 	err := http.ListenAndServe(c.Listen, r)
 
