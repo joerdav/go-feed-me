@@ -51,7 +51,7 @@ func Run(env string) {
 		PathPrefix("/").
 		Handler(logHandler(http.StripPrefix("/content", http.FileServer(http.Dir("/src/public/")))))
 
-	err = http.ListenAndServe(c.Listen, r)
+	err := http.ListenAndServe(c.Listen, r)
 
 	log.Fatal(err)
 }
