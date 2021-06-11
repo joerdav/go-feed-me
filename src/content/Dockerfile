@@ -14,6 +14,6 @@ COPY . /src/.
 RUN go mod verify
 RUN go mod vendor
 
-RUN go build -o /src/app ./cmd
+RUN go build -o /src/tmp/cmd ./cmd
 EXPOSE 80
-CMD ["/src/app"]
+CMD ["/src/tmp/cmd"]

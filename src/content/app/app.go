@@ -3,6 +3,7 @@ package app
 import (
 	"content/types"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 
@@ -35,7 +36,25 @@ func Run(env string) {
 		PathPrefix("/").
 		Handler(http.StripPrefix("/content/", http.FileServer(http.Dir("./public/"))))
 
-	err := http.ListenAndServe(c.Listen, r)
+	files, err := ioutil.ReadDir("./")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, f := range files {
+		fmt.Println(f.Name())
+	}
+
+	files, err = ioutil.ReadDir("./public")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, f := range files {
+		fmt.Println(f.Name())
+	}
+
+	err = http.ListenAndServe(c.Listen, r)
 
 	log.Fatal(err)
 }
