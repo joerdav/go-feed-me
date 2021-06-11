@@ -84,7 +84,7 @@ locals {
         }
       }
     }
-  ], content_backend_list)
+  ], local.content_backend_list)
 
   backends_map = { for item in local.backends_list :
     keys(item)[0] => values(item)[0]
