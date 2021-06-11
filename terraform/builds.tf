@@ -1,13 +1,3 @@
-locals {
-    services = [
-        "basket",
-        "browse",
-        "container",
-        "content",
-        "details",
-        "random"]
-}
-
 resource "google_cloudbuild_trigger" "service" {
     for_each = toset(local.services)
 
