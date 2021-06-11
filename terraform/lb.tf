@@ -35,7 +35,30 @@ resource "google_compute_url_map" "url_map" {
 }
 
 locals {
-  backends_list = [
+  content_backend = [
+    content_backend = {
+        description = ""
+        groups = [
+          {
+            group = google_compute_backend_bucket.static.id
+          },
+        ]
+        enable_cdn             = false
+        security_policy        = null
+        custom_request_headers = null
+
+        iap_config = {
+          enable               = false
+          oauth2_client_id     = ""
+          oauth2_client_secret = ""
+        }
+        log_config = {
+          enable      = false
+          sample_rate = null
+        }
+      }
+  ]
+  backends_list = concat([
     for s in local.services : {
       "${s}" = {
         description = ""
@@ -59,7 +82,7 @@ locals {
         }
       }
     }
-  ]
+  ], content_backend)
 
   backends_map = { for item in local.backends_list :
     keys(item)[0] => values(item)[0]

@@ -8,12 +8,10 @@ locals {
         "basket",
         "browse",
         "container",
-        "content",
         "details",
         "random"
         ]
     url_map = {
-        "/content" = "content"
         "/apps/basket" = "basket"
         "/apps/browse" = "browse"
         "/apps/details" = "details"

@@ -38,3 +38,19 @@ resource "google_cloudbuild_trigger" "infra" {
 
     filename = "terraform/cloudbuild.yaml"
 }
+
+resource "google_cloudbuild_trigger" "content" {
+    name = "gfm-infra-build"
+
+    github {
+      owner = "Joe-Davidson1802"
+      name  = "go-feed-me"
+      push {
+        branch = "^main$"
+      }
+    }
+
+    included_files = ["src/content/**"]
+
+    filename = "src/content/cloudbuild.yaml"
+}
