@@ -1,0 +1,46 @@
+{
+  "hosting": {
+    "public": "./public",
+    "ignore": [
+      "firebase.json",
+      "**/.*"
+    ],
+    "rewrites": [
+      {
+        "source": "/apps/browse/**",
+        "run": {
+          "serviceId": "gfm-browse-run",
+          "region": "europe-west2"
+        }
+      },
+      {
+        "source": "/apps/details/**",
+        "run": {
+          "serviceId": "gfm-details-run",
+          "region": "europe-west2"
+        }
+      },
+      {
+        "regex": "/apps/basket.*",
+        "run": {
+          "serviceId": "gfm-basket-run",
+          "region": "europe-west2"
+        }
+      },
+      {
+        "regex": "/apps/random.*",
+        "run": {
+          "serviceId": "gfm-random-run",
+          "region": "europe-west2"
+        }
+      },
+      {
+        "source": "/**",
+        "run": {
+          "serviceId": "gfm-container-run",
+          "region": "europe-west2"
+        }
+      }
+    ]
+  }
+}
