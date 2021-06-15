@@ -5,5 +5,5 @@ steps:
     'cp',
     '-r',
     'public/*',
-    '${_BUCKET_URL}/*'
+    '${_BUCKET_URL}'
     ]
