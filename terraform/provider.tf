@@ -12,22 +12,20 @@ provider "google-beta" {
   // credentials = "./credentials.json"
 }
 
-resource "google_project_service" "iam" {
-  project = var.project_id
-  service   = "iam.googleapis.com"
+locals {
+  enabled_services = toset([
+    "iam.googleapis.com",
+    "container.googleapis.com",
+    "cloudbuild.googleapis.com",
+    "cloudresourcemanager.googleapis.com",
+  ])
 }
 
-resource "google_project_service" "container" {
-  project = var.project_id
-  service   = "container.googleapis.com"
-}
+resource "google_project_service" "services" {
+  for_each = local.enabled_services
 
-resource "google_project_service" "cloudbuild" {
+  disable_dependent_services=false
+  disable_on_destroy=false
   project = var.project_id
-  service   = "cloudbuild.googleapis.com"
-}
-
-resource "google_project_service" "cloudresourcemanager" {
-  project = var.project_id
-  service   = "cloudresourcemanager.googleapis.com"
+  service   = each.value
 }

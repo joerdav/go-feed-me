@@ -21,6 +21,7 @@ resource "google_cloudbuild_trigger" "service" {
     }
 
     filename = "src/${each.value}/cloudbuild.yaml"
+    depends_on = [ google_project_service.services ]
 }
 
 resource "google_cloudbuild_trigger" "infra" {
@@ -37,6 +38,7 @@ resource "google_cloudbuild_trigger" "infra" {
     included_files = ["terraform/**"]
 
     filename = "terraform/cloudbuild.yaml"
+    depends_on = [ google_project_service.services ]
 }
 
 resource "google_cloudbuild_trigger" "content" {
@@ -53,4 +55,5 @@ resource "google_cloudbuild_trigger" "content" {
     included_files = ["src/content/**"]
 
     filename = "src/content/cloudbuild.yaml"
+    depends_on = [ google_project_service.services ]
 }

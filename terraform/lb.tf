@@ -6,6 +6,7 @@ resource "google_compute_region_network_endpoint_group" "cloudrun_neg" {
   cloud_run {
     service = google_cloud_run_service.run_service[each.value].name
   }
+  depends_on = [ google_project_service.services ]
 }
 
 resource "google_compute_url_map" "url_map" {
@@ -31,7 +32,16 @@ resource "google_compute_url_map" "url_map" {
         service = module.lb-http.backend_services[path_rule.value].self_link
       }
     }
+
+    path_rule {
+      paths = [
+        "/content",
+        "/content/*"
+      ]
+      service = google_compute_backend_bucket.static_backend.self_link
+    }
   }
+  depends_on = [ google_project_service.services ]
 }
 
 locals {
@@ -60,7 +70,7 @@ locals {
       }
       }
   ]
-  backends_list = concat(local.content_backend_list, [
+  backends_list = [
     for s in local.services : {
       "${s}" = {
         description = ""
@@ -84,7 +94,7 @@ locals {
         }
       }
     }
-  ])
+  ]
 
   backends_map = { for item in local.backends_list :
     keys(item)[0] => values(item)[0]
@@ -105,4 +115,5 @@ module "lb-http" {
   https_redirect                  = true
 
   backends = local.backends_map
+  depends_on = [ google_project_service.services ]
 }

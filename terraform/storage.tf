@@ -11,6 +11,7 @@ resource "google_storage_bucket" "static" {
     response_header = ["*"]
     max_age_seconds = 3600
   }
+  depends_on = [ google_project_service.services ]
 }
 
 resource "google_compute_backend_bucket" "static_backend" {
@@ -18,4 +19,5 @@ resource "google_compute_backend_bucket" "static_backend" {
   description = ""
   bucket_name = google_storage_bucket.static.name
   enable_cdn  = false
+  depends_on = [ google_project_service.services ]
 }

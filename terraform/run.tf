@@ -24,6 +24,7 @@ resource "google_cloud_run_service" "run_service" {
             template.0.spec.0.containers.0.image,
         ]
     }
+    depends_on = [ google_project_service.services ]
 }
 
 data "google_iam_policy" "noauth" {
@@ -42,4 +43,5 @@ resource "google_cloud_run_service_iam_policy" "noauth" {
     service     = google_cloud_run_service.run_service[each.value].name
 
     policy_data = data.google_iam_policy.noauth.policy_data
+    depends_on = [ google_project_service.services ]
 }
