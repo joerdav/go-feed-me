@@ -9,10 +9,14 @@
                 {% for _, r := range rs %}
                     <div class="card">
                         <a target="_top" href={%= "/details/restaurant/" + r.Id %}>
-                            <h3 class="card-header">{%= r.Name %}</h3>
-                            <img src={%= "/content" + r.ImageSrc %} alt={%= r.ImageDescription %} />
-                            <p class="card-body"><strong>{%= r.PriceRange %}</strong></p>
-                            <p class="card-body">{%= r.Description %}</p>
+                            <div class="section">
+                                <h3 class="card-header">{%= r.Name %}</h3>
+                            </div>
+                            <img src={%= "/content" + r.ImageSrc %} alt={%= r.ImageDescription %} class="section media" />
+                            <div class="section">
+                                <p class="card-body"><strong>{%= r.PriceRange %}</strong></p>
+                                <p class="card-body">{%= r.Description %}</p>
+                            </div>
                         </a>
                     </div>
                 {% endfor %}

@@ -7,7 +7,7 @@
     <turbo-frame id="container">
         <section>
             <div class="row">
-                <div class="col-6">
+                <div class="col-sm-6">
                     <div class="card fluid">
                         <h3 class="card-header">{%= r.Name %}</h3>
                         <img src={%= "/content" + r.ImageSrc %} alt={%= r.ImageDescription %} />
@@ -15,7 +15,7 @@
                         <p class="card-body">{%= r.Description %}</p>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-sm-6">
                     <div class="card fluid">
                         <form action="/apps/basket" method="PUT">
                             <input name="name" value={%= r.Name %} hidden="true"/>
