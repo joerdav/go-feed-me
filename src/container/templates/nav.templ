@@ -4,9 +4,9 @@
 
 {% templ NavTemplate(apps []types.AppConfig) %}
     <div class="nav" data-turbo-permanent="true" id="nav">
-        <h5>{%= "Go Feed Me" %}</h1>
-            {% for _, a := range apps %}
-                <a class="nav-item" href={%= a.Url %}  target="_top">{%= a.Name %}</a>
-            {% endfor %}
+        <h5>{%= "Go Feed Me" %}</h5>
+        {% for _, a := range apps %}
+            <a class="nav-item" href={%= a.Url %}  target="_top">{%= a.Name %}</a>
+        {% endfor %}
     </nav>
 {% endtempl %}
