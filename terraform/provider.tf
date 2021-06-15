@@ -18,6 +18,7 @@ locals {
     "container.googleapis.com",
     "cloudbuild.googleapis.com",
     "cloudresourcemanager.googleapis.com",
+    "firebase.googleapis.com",
   ])
 }
 
