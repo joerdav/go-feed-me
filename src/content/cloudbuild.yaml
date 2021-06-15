@@ -4,6 +4,6 @@ steps:
   args: [
     'cp',
     '-r',
-    'public/*',
-    '${_BUCKET_URL}'
+    './public/*',
+    '${_BUCKET_URL}/content/'
     ]
