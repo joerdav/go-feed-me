@@ -14,14 +14,6 @@ resource "google_storage_bucket" "static" {
   depends_on = [ google_project_service.services ]
 }
 
-resource "google_compute_backend_bucket" "static_backend" {
-  name        = "static-backend-bucket"
-  description = ""
-  bucket_name = google_storage_bucket.static.name
-  enable_cdn  = false
-  depends_on = [ google_project_service.services ]
-}
-
 resource "google_storage_bucket_iam_member" "member" {
   bucket = google_storage_bucket.static.name
   role = "roles/storage.objectViewer"
