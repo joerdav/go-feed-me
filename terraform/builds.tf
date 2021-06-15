@@ -61,3 +61,24 @@ resource "google_cloudbuild_trigger" "content" {
     filename = "src/content/cloudbuild.yaml"
     depends_on = [ google_project_service.services ]
 }
+
+resource "google_cloudbuild_trigger" "proxy" {
+    name = "gfm-proxy-build"
+
+    github {
+      owner = "Joe-Davidson1802"
+      name  = "go-feed-me"
+      push {
+        branch = "^main$"
+      }
+    }
+
+    included_files = ["src/proxy/**"]
+
+    substitutions = {
+      _NAME = "proxy"
+    }
+
+    filename = "src/proxy/cloudbuild.yaml"
+    depends_on = [ google_project_service.services ]
+}
