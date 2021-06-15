@@ -42,7 +42,7 @@ resource "google_cloudbuild_trigger" "infra" {
 }
 
 resource "google_cloudbuild_trigger" "content" {
-    name = "gfm-infra-build"
+    name = "gfm-content-build"
 
     github {
       owner = "Joe-Davidson1802"
@@ -53,6 +53,10 @@ resource "google_cloudbuild_trigger" "content" {
     }
 
     included_files = ["src/content/**"]
+
+    substitutions = {
+      _BUCKET_URL = google_storage_bucket.static.url
+    }
 
     filename = "src/content/cloudbuild.yaml"
     depends_on = [ google_project_service.services ]
