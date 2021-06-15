@@ -5,11 +5,11 @@
 {% templ ListerComponent(c types.Config, rs []types.Restaurant) %}
     <turbo-frame id="container">
         <section>
-            <div class="cards">
+            <div class="row">
                 {% for _, r := range rs %}
                     <div class="card">
                         <a target="_top" href={%= "/details/restaurant/" + r.Id %}>
-                            <h5 class="card-header">{%= r.Name %}</h5>
+                            <h3 class="card-header">{%= r.Name %}</h3>
                             <img src={%= "/content" + r.ImageSrc %} alt={%= r.ImageDescription %} />
                             <p class="card-body"><strong>{%= r.PriceRange %}</strong></p>
                             <p class="card-body">{%= r.Description %}</p>

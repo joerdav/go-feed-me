@@ -6,25 +6,29 @@
 {% templ RestaurantComponent(c types.Config, r types.Restaurant) %}
     <turbo-frame id="container">
         <section>
-            <div class="cards">
-                <div class="card">
-                    <h5 class="card-header">{%= r.Name %}</h5>
-                    <img src={%= "/content" + r.ImageSrc %} alt={%= r.ImageDescription %} />
-                    <p class="card-body"><strong>{%= r.PriceRange %}</strong></p>
-                    <p class="card-body">{%= r.Description %}</p>
+            <div class="row">
+                <div class="col-6">
+                    <div class="card fluid">
+                        <h3 class="card-header">{%= r.Name %}</h5>
+                        <img src={%= "/content" + r.ImageSrc %} alt={%= r.ImageDescription %} />
+                        <p class="card-body"><strong>{%= r.PriceRange %}</strong></p>
+                        <p class="card-body">{%= r.Description %}</p>
+                    </div>
                 </div>
-                <div class="card">
-                    <form action="/apps/basket" method="PUT">
-                        <input name="name" value={%= r.Name %} hidden="true"/>
-                        <input name="id" value={%= r.Id %} hidden="true"/>
-                        <h3>{%= "Menu" %}</h3>
-                        {% for x, i := range r.Menu %}
-                            <h4>{%= i.Name %}<small>{%= "    £" %}{%= strconv.Itoa(i.Price) %}</small></h4>
-                            <input type="number" value="0" min="0" max="10" name={%= "items."+strconv.Itoa(x)+".quantity" %} />
-                            <input name={%= "items."+strconv.Itoa(x)+".id" %} value={%= strconv.Itoa(x) %} hidden="true"/>
-                        {% endfor %}
-                        <button>{%= "Add to basket" %}</button>
-                    </form>
+                <div class="col-6">
+                    <div class="card fluid">
+                        <form action="/apps/basket" method="PUT">
+                            <input name="name" value={%= r.Name %} hidden="true"/>
+                            <input name="id" value={%= r.Id %} hidden="true"/>
+                            <h3>{%= "Menu" %}</h3>
+                            {% for x, i := range r.Menu %}
+                                <h4>{%= i.Name %}<small>{%= "    £" %}{%= strconv.Itoa(i.Price) %}</small></h4>
+                                <input type="number" value="0" min="0" max="10" name={%= "items."+strconv.Itoa(x)+".quantity" %} />
+                                <input name={%= "items."+strconv.Itoa(x)+".id" %} value={%= strconv.Itoa(x) %} hidden="true"/>
+                            {% endfor %}
+                            <button>{%= "Add to basket" %}</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>

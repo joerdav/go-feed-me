@@ -7,13 +7,13 @@
 	<head>
 		<title>{%= "Go Feed Me" %}</title>
 		<meta charset="utf-8"/>
-		<link rel="stylesheet" href="https://unpkg.com/wingcss" />
+		<link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.1/dist/mini-default.min.css" />
         <script type="module">{%! Raw("import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';") %}</script>
 	</head>
 	<body>
 		<main>
+			{%! NavTemplate(c.Apps) %}
 			<article>
-				{%! NavTemplate(c.Apps) %}
 				<turbo-frame id="container" src={%= url %}>
 				</turbo-frame>
 			</article>
