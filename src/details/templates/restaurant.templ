@@ -18,15 +18,17 @@
                 <div class="col-sm-6">
                     <div class="card fluid">
                         <form action="/apps/basket" method="PUT">
-                            <input name="name" value={%= r.Name %} hidden="true"/>
-                            <input name="id" value={%= r.Id %} hidden="true"/>
-                            <h3>{%= "Menu" %}</h3>
-                            {% for x, i := range r.Menu %}
-                                <h4>{%= i.Name %}<small>{%= "    £" %}{%= strconv.Itoa(i.Price) %}</small></h4>
-                                <input type="number" value="0" min="0" max="10" name={%= "items."+strconv.Itoa(x)+".quantity" %} />
-                                <input name={%= "items."+strconv.Itoa(x)+".id" %} value={%= strconv.Itoa(x) %} hidden="true"/>
-                            {% endfor %}
-                            <button>{%= "Add to basket" %}</button>
+                            <fieldset>
+                                <input name="name" value={%= r.Name %} hidden="true"/>
+                                <input name="id" value={%= r.Id %} hidden="true"/>
+                                <legend>{%= "Menu" %}</legend>
+                                {% for x, i := range r.Menu %}
+                                    <h4>{%= i.Name %}<small>{%= "    £" %}{%= strconv.Itoa(i.Price) %}</small></h4>
+                                    <input type="number" value="0" min="0" max="10" name={%= "items."+strconv.Itoa(x)+".quantity" %} />
+                                    <input name={%= "items."+strconv.Itoa(x)+".id" %} value={%= strconv.Itoa(x) %} hidden="true"/>
+                                {% endfor %}
+                                <button>{%= "Add to basket" %}</button>
+                            </fieldset>
                         </form>
                     </div>
                 </div>
