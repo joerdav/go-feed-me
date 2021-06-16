@@ -4,6 +4,12 @@
 
 {% templ ListerComponent(c types.Config, rs []types.Restaurant) %}
     <turbo-frame id="container">
+        <section data-turbo-permanent="true" id="search">
+            <form action="/apps/browse/restaurants" method="GET">
+                <input name="search"></input>
+                <button type="submit">{%= "Search" %}</button>
+            </form>
+        </section>
         <section>
             <div class="row">
                 {% for _, r := range rs %}
