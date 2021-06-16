@@ -26,5 +26,7 @@ func (h RandomHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	url := fmt.Sprintf("/apps/details/restaurant/%s", rs[rand.Intn(len(rs))].Id)
 
+	w.Header().Add("Cache-Control", "no-cache")
+
 	http.Redirect(w, r, url, http.StatusSeeOther)
 }

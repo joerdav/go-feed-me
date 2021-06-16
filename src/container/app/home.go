@@ -24,6 +24,8 @@ func (h HomeHandler) CanHandleModel(m string) bool {
 }
 
 func (h HomeHandler) HandleRequest(w http.ResponseWriter, r *http.Request) (error, hotwirehandler.Model) {
+
+	w.Header().Add("Cache-Control", "no-cache")
 	return nil, ContainerModel{
 		url: r.RequestURI,
 	}

@@ -71,6 +71,8 @@ func (h UpdateBasketHandler) HandleRequest(w http.ResponseWriter, r *http.Reques
 		basket = append(basket, res)
 	}
 
+	w.Header().Add("Cache-Control", "no-cache")
+
 	return nil, types.Basket{
 		Restaurants: basket,
 	}

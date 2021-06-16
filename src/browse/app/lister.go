@@ -49,6 +49,8 @@ func (h ListerHandler) HandleRequest(w http.ResponseWriter, r *http.Request) (er
 		return err, nil
 	}
 
+	w.Header().Add("Cache-Control", "no-cache")
+
 	return nil, types.RestaurantList{
 		Restaurants: resultList,
 	}

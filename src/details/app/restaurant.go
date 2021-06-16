@@ -40,6 +40,8 @@ func (h RestaurantHandler) HandleRequest(w http.ResponseWriter, r *http.Request)
 		}
 	}
 
+	w.Header().Add("Cache-Control", "no-cache")
+
 	return nil, restaurant
 }
 
