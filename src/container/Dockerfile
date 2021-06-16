@@ -1,6 +1,5 @@
 FROM golang:latest
 
-
 ENV GO111MODULE=on
 
 RUN go install github.com/a-h/templ/cmd/templ@latest
