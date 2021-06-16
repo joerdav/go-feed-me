@@ -7,6 +7,7 @@ import (
 	"context"
 	"errors"
 	"net/http"
+	"strings"
 
 	"github.com/joe-davidson1802/hotwirehandler"
 )
@@ -22,14 +23,31 @@ func (h ListerHandler) CanHandleModel(m string) bool {
 func (h ListerHandler) HandleRequest(w http.ResponseWriter, r *http.Request) (error, hotwirehandler.Model) {
 	repo := restaurants.RestaurantRepository{Config: h.Config}
 
+	search := r.FormValue("search")
+
 	rs, err := repo.GetRestaurants()
+
+	resultList := []types.Restaurant{}
+
+	if search != "" {
+		for _, res := range rs {
+			if strings.Contains(
+				strings.ToLower(search),
+				strings.ToLower(res.Name),
+			) {
+				resultList = append(resultList, res)
+			}
+		}
+	} else {
+		resultList = rs
+	}
 
 	if err != nil {
 		return err, nil
 	}
 
 	return nil, types.RestaurantList{
-		Restaurants: rs,
+		Restaurants: resultList,
 	}
 }
 
