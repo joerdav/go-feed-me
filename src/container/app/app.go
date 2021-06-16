@@ -6,8 +6,6 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/joe-davidson1802/hotwirehandler"
-
 	"github.com/BurntSushi/toml"
 	"github.com/gorilla/mux"
 )
@@ -31,7 +29,7 @@ func Run(env string) {
 
 	r := mux.NewRouter()
 
-	r.PathPrefix("/").Handler(hotwirehandler.New(HomeHandler{Config: c}))
+	r.PathPrefix("/").Handler(HomeHandler{Config: c})
 
 	err := http.ListenAndServe(c.Listen, r)
 
