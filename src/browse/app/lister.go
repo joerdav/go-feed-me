@@ -32,8 +32,8 @@ func (h ListerHandler) HandleRequest(w http.ResponseWriter, r *http.Request) (er
 	if search != "" {
 		for _, res := range rs {
 			if strings.Contains(
-				strings.ToLower(search),
 				strings.ToLower(res.Name),
+				strings.ToLower(search),
 			) {
 				resultList = append(resultList, res)
 			}
