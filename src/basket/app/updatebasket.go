@@ -1,7 +1,6 @@
 package app
 
 import (
-	"basket/hothandler"
 	"basket/restaurants"
 	"basket/templates"
 	"basket/types"
@@ -11,6 +10,7 @@ import (
 	"strconv"
 
 	"github.com/gorilla/schema"
+	"github.com/joe-davidson1802/hotwirehandler"
 )
 
 var decoder = schema.NewDecoder()
@@ -23,7 +23,7 @@ func (h UpdateBasketHandler) CanHandleModel(m string) bool {
 	return m == types.Basket{}.ModelName()
 }
 
-func (h UpdateBasketHandler) HandleRequest(w http.ResponseWriter, r *http.Request) (error, hothandler.Model) {
+func (h UpdateBasketHandler) HandleRequest(w http.ResponseWriter, r *http.Request) (error, hotwirehandler.Model) {
 	err := r.ParseForm()
 
 	if err != nil {
@@ -76,7 +76,7 @@ func (h UpdateBasketHandler) HandleRequest(w http.ResponseWriter, r *http.Reques
 	}
 }
 
-func (h UpdateBasketHandler) RenderPage(ctx context.Context, m hothandler.Model, w http.ResponseWriter) error {
+func (h UpdateBasketHandler) RenderPage(ctx context.Context, m hotwirehandler.Model, w http.ResponseWriter) error {
 	mod := m.(types.Basket)
 
 	w.Header().Add("Content-Type", "text/html")
@@ -86,7 +86,7 @@ func (h UpdateBasketHandler) RenderPage(ctx context.Context, m hothandler.Model,
 	return err
 }
 
-func (h UpdateBasketHandler) RenderStream(ctx context.Context, m hothandler.Model, w http.ResponseWriter) error {
+func (h UpdateBasketHandler) RenderStream(ctx context.Context, m hotwirehandler.Model, w http.ResponseWriter) error {
 	mod := m.(types.Basket)
 
 	w.Header().Add("Content-Type", "text/vnd.turbo-stream.html")

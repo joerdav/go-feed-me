@@ -1,11 +1,12 @@
 package app
 
 import (
-	"basket/hothandler"
 	"basket/templates"
 	"basket/types"
 	"context"
 	"net/http"
+
+	"github.com/joe-davidson1802/hotwirehandler"
 )
 
 type GetBasketHandler struct {
@@ -16,7 +17,7 @@ func (h GetBasketHandler) CanHandleModel(m string) bool {
 	return m == types.Basket{}.ModelName()
 }
 
-func (h GetBasketHandler) HandleRequest(w http.ResponseWriter, r *http.Request) (error, hothandler.Model) {
+func (h GetBasketHandler) HandleRequest(w http.ResponseWriter, r *http.Request) (error, hotwirehandler.Model) {
 	basket := []types.Restaurant{}
 
 	for _, res := range inmemorybasket {
@@ -28,7 +29,7 @@ func (h GetBasketHandler) HandleRequest(w http.ResponseWriter, r *http.Request) 
 	}
 }
 
-func (h GetBasketHandler) RenderPage(ctx context.Context, m hothandler.Model, w http.ResponseWriter) error {
+func (h GetBasketHandler) RenderPage(ctx context.Context, m hotwirehandler.Model, w http.ResponseWriter) error {
 	mod := m.(types.Basket)
 
 	w.Header().Add("Content-Type", "text/html")
@@ -38,7 +39,7 @@ func (h GetBasketHandler) RenderPage(ctx context.Context, m hothandler.Model, w 
 	return err
 }
 
-func (h GetBasketHandler) RenderStream(ctx context.Context, m hothandler.Model, w http.ResponseWriter) error {
+func (h GetBasketHandler) RenderStream(ctx context.Context, m hotwirehandler.Model, w http.ResponseWriter) error {
 	mod := m.(types.Basket)
 
 	w.Header().Add("Content-Type", "text/vnd.turbo-stream.html")

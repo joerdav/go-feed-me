@@ -2,7 +2,6 @@ package app
 
 import (
 	"context"
-	"details/hothandler"
 	"details/restaurants"
 	"details/templates"
 	"details/types"
@@ -10,6 +9,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/joe-davidson1802/hotwirehandler"
 )
 
 type RestaurantHandler struct {
@@ -20,7 +20,7 @@ func (h RestaurantHandler) CanHandleModel(m string) bool {
 	return m == types.Restaurant{}.ModelName()
 }
 
-func (h RestaurantHandler) HandleRequest(w http.ResponseWriter, r *http.Request) (error, hothandler.Model) {
+func (h RestaurantHandler) HandleRequest(w http.ResponseWriter, r *http.Request) (error, hotwirehandler.Model) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
@@ -43,7 +43,7 @@ func (h RestaurantHandler) HandleRequest(w http.ResponseWriter, r *http.Request)
 	return nil, restaurant
 }
 
-func (h RestaurantHandler) RenderPage(ctx context.Context, m hothandler.Model, w http.ResponseWriter) error {
+func (h RestaurantHandler) RenderPage(ctx context.Context, m hotwirehandler.Model, w http.ResponseWriter) error {
 	mod := m.(types.Restaurant)
 
 	w.Header().Add("Content-Type", "text/html")
@@ -53,6 +53,6 @@ func (h RestaurantHandler) RenderPage(ctx context.Context, m hothandler.Model, w
 	return err
 }
 
-func (h RestaurantHandler) RenderStream(ctx context.Context, m hothandler.Model, w http.ResponseWriter) error {
+func (h RestaurantHandler) RenderStream(ctx context.Context, m hotwirehandler.Model, w http.ResponseWriter) error {
 	return errors.New("Endpoint does not render streams")
 }

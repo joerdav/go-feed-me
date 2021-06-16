@@ -1,7 +1,6 @@
 package app
 
 import (
-	"basket/hothandler"
 	"basket/types"
 	"fmt"
 	"log"
@@ -10,6 +9,7 @@ import (
 	"github.com/BurntSushi/toml"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"github.com/joe-davidson1802/hotwirehandler"
 )
 
 var inmemorybasket = map[string]types.Restaurant{}
@@ -35,8 +35,8 @@ func Run(env string) {
 		PathPrefix("/apps").
 		Subrouter()
 
-	r.Handle("/basket", hothandler.New(UpdateBasketHandler{Config: c})).Methods("PUT")
-	r.Handle("/basket", hothandler.New(GetBasketHandler{Config: c})).Methods("GET")
+	r.Handle("/basket", hotwirehandler.New(UpdateBasketHandler{Config: c})).Methods("PUT")
+	r.Handle("/basket", hotwirehandler.New(GetBasketHandler{Config: c})).Methods("GET")
 
 	corsObj := handlers.AllowedOrigins([]string{"*"})
 	methods := handlers.AllowedMethods([]string{"PUT", "OPTIONS"})

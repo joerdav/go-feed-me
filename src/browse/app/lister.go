@@ -1,13 +1,14 @@
 package app
 
 import (
-	"browse/hothandler"
 	"browse/restaurants"
 	"browse/templates"
 	"browse/types"
 	"context"
 	"errors"
 	"net/http"
+
+	"github.com/joe-davidson1802/hotwirehandler"
 )
 
 type ListerHandler struct {
@@ -18,7 +19,7 @@ func (h ListerHandler) CanHandleModel(m string) bool {
 	return m == types.RestaurantList{}.ModelName()
 }
 
-func (h ListerHandler) HandleRequest(w http.ResponseWriter, r *http.Request) (error, hothandler.Model) {
+func (h ListerHandler) HandleRequest(w http.ResponseWriter, r *http.Request) (error, hotwirehandler.Model) {
 	repo := restaurants.RestaurantRepository{Config: h.Config}
 
 	rs, err := repo.GetRestaurants()
@@ -32,7 +33,7 @@ func (h ListerHandler) HandleRequest(w http.ResponseWriter, r *http.Request) (er
 	}
 }
 
-func (h ListerHandler) RenderPage(ctx context.Context, m hothandler.Model, w http.ResponseWriter) error {
+func (h ListerHandler) RenderPage(ctx context.Context, m hotwirehandler.Model, w http.ResponseWriter) error {
 	mod := m.(types.RestaurantList)
 
 	w.Header().Add("Content-Type", "text/html")
@@ -42,6 +43,6 @@ func (h ListerHandler) RenderPage(ctx context.Context, m hothandler.Model, w htt
 	return err
 }
 
-func (h ListerHandler) RenderStream(ctx context.Context, m hothandler.Model, w http.ResponseWriter) error {
+func (h ListerHandler) RenderStream(ctx context.Context, m hotwirehandler.Model, w http.ResponseWriter) error {
 	return errors.New("Endpoint does not render streams")
 }

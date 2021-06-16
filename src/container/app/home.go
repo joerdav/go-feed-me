@@ -1,11 +1,12 @@
 package app
 
 import (
-	"container/hothandler"
 	"container/templates"
 	"container/types"
 	"context"
 	"net/http"
+
+	"github.com/joe-davidson1802/hotwirehandler"
 )
 
 type ContainerModel struct {
@@ -22,13 +23,13 @@ func (h HomeHandler) CanHandleModel(m string) bool {
 	return m == ContainerModel{}.ModelName()
 }
 
-func (h HomeHandler) HandleRequest(w http.ResponseWriter, r *http.Request) (error, hothandler.Model) {
+func (h HomeHandler) HandleRequest(w http.ResponseWriter, r *http.Request) (error, hotwirehandler.Model) {
 	return nil, ContainerModel{
 		url: r.RequestURI,
 	}
 }
 
-func (h HomeHandler) RenderPage(ctx context.Context, m hothandler.Model, w http.ResponseWriter) error {
+func (h HomeHandler) RenderPage(ctx context.Context, m hotwirehandler.Model, w http.ResponseWriter) error {
 	cm := m.(ContainerModel)
 
 	w.Header().Add("Content-Type", "text/html")
@@ -45,7 +46,7 @@ func (h HomeHandler) RenderPage(ctx context.Context, m hothandler.Model, w http.
 	return err
 }
 
-func (h HomeHandler) RenderStream(ctx context.Context, m hothandler.Model, w http.ResponseWriter) error {
+func (h HomeHandler) RenderStream(ctx context.Context, m hotwirehandler.Model, w http.ResponseWriter) error {
 	err := templates.NavTemplate(h.Config.Apps).Render(ctx, w)
 	return err
 }

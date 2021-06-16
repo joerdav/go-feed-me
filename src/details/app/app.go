@@ -1,7 +1,6 @@
 package app
 
 import (
-	"details/hothandler"
 	"details/types"
 	"fmt"
 	"log"
@@ -10,6 +9,7 @@ import (
 	"github.com/BurntSushi/toml"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"github.com/joe-davidson1802/hotwirehandler"
 )
 
 func Run(env string) {
@@ -33,7 +33,7 @@ func Run(env string) {
 		PathPrefix("/apps/details").
 		Subrouter()
 
-	r.Handle("/restaurant/{id}", hothandler.New(RestaurantHandler{Config: c})).Methods("GET", "OPTIONS")
+	r.Handle("/restaurant/{id}", hotwirehandler.New(RestaurantHandler{Config: c})).Methods("GET", "OPTIONS")
 
 	corsObj := handlers.AllowedOrigins([]string{"*"})
 	methods := handlers.AllowedMethods([]string{"GET", "OPTIONS"})

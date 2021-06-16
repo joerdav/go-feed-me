@@ -1,11 +1,12 @@
 package app
 
 import (
-	"container/hothandler"
 	"container/types"
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/joe-davidson1802/hotwirehandler"
 
 	"github.com/BurntSushi/toml"
 	"github.com/gorilla/mux"
@@ -30,7 +31,7 @@ func Run(env string) {
 
 	r := mux.NewRouter()
 
-	r.PathPrefix("/").Handler(hothandler.New(HomeHandler{Config: c}))
+	r.PathPrefix("/").Handler(hotwirehandler.New(HomeHandler{Config: c}))
 
 	err := http.ListenAndServe(c.Listen, r)
 

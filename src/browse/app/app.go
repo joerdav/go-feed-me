@@ -1,11 +1,12 @@
 package app
 
 import (
-	"browse/hothandler"
 	"browse/types"
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/joe-davidson1802/hotwirehandler"
 
 	"github.com/BurntSushi/toml"
 	"github.com/gorilla/handlers"
@@ -34,7 +35,7 @@ func Run(env string) {
 		PathPrefix("/apps/browse").
 		Subrouter()
 
-	r.Handle("/restaurants", hothandler.New(ListerHandler{Config: c})).Methods("GET", "OPTIONS")
+	r.Handle("/restaurants", hotwirehandler.New(ListerHandler{Config: c})).Methods("GET", "OPTIONS")
 
 	corsObj := handlers.AllowedOrigins([]string{"*"})
 	methods := handlers.AllowedMethods([]string{"GET", "OPTIONS"})
