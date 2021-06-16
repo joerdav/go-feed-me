@@ -6,7 +6,6 @@ import (
 	"browse/types"
 	"context"
 	"errors"
-	"fmt"
 	"net/http"
 	"strings"
 
@@ -31,9 +30,7 @@ func (h ListerHandler) HandleRequest(w http.ResponseWriter, r *http.Request) (er
 	resultList := []types.Restaurant{}
 
 	if search != "" {
-		fmt.Println(fmt.Sprintf("Searching for %s", search))
 		for _, res := range rs {
-			fmt.Println(fmt.Sprintf("Testing %s for %s", res.Name, search))
 			if strings.Contains(
 				strings.ToLower(res.Name),
 				strings.ToLower(search),
