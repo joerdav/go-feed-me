@@ -46,7 +46,8 @@ func Run(env string) {
 	r := mux.NewRouter()
 
 	r.
-		Handle("/content/", logHandler(http.StripPrefix("/content/", http.FileServer(http.Dir("./public/")))))
+		PathPrefix("/content/").
+		Handler(http.StripPrefix("/content/", http.FileServer(http.Dir("./public/"))))
 
 	err := http.ListenAndServe(c.Listen, r)
 
