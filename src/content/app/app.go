@@ -5,26 +5,10 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"net/http/httptest"
-	"net/http/httputil"
 
 	"github.com/BurntSushi/toml"
 	"github.com/gorilla/mux"
 )
-
-func logHandler(han http.Handler) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		x, err := httputil.DumpRequest(r, true)
-		if err != nil {
-			http.Error(w, fmt.Sprint(err), http.StatusInternalServerError)
-			return
-		}
-		log.Println(fmt.Sprintf("%q", x))
-		rec := httptest.NewRecorder()
-		han.ServeHTTP(rec, r)
-		log.Println(fmt.Sprintf("%q", rec.Body))
-	}
-}
 
 func Run(env string) {
 	var c types.Config
