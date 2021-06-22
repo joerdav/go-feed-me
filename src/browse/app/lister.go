@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/joe-davidson1802/hotwirehandler"
+	"github.com/joe-davidson1802/turbo-templ/turbo"
 )
 
 type ListerHandler struct {
@@ -58,7 +59,14 @@ func (h ListerHandler) RenderPage(ctx context.Context, m hotwirehandler.Model, w
 
 	w.Header().Add("Content-Type", "text/html")
 
-	err := templates.ListerComponent(h.Config, mod.Restaurants).Render(ctx, w)
+	content := templates.ListerComponent(h.Config, mod.Restaurants)
+
+	frame := turbo.TurboFrame(turbo.TurboFrameOptions{
+		Id:       "container",
+		Contents: &content,
+	})
+
+	err := frame.Render(ctx, w)
 
 	return err
 }

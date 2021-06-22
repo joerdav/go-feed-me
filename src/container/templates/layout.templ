@@ -1,6 +1,7 @@
 {% package templates %}
 
 {% import "container/types" %}
+{% import "github.com/joe-davidson1802/turbo-templ/turbo" %}
 
 {% templ LayoutTemplate(url string, c types.Config) %}
 <html>
@@ -14,8 +15,7 @@
 		<main>
 			{%! NavTemplate(c.Apps) %}
 			<article>
-				<turbo-frame id="container" src={%= url %}>
-				</turbo-frame>
+				{%! turbo.TurboFrame(turbo.TurboFrameOptions{Id: "container", Src: url}) %}
 			</article>
 		</main>
         <section>

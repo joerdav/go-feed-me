@@ -133,6 +133,8 @@ github.com/ianlancetaylor/demangle v0.0.0-20181102032728-5e5cf60278f6/go.mod h1:
 github.com/ianlancetaylor/demangle v0.0.0-20200824232613-28f6c0f3b639/go.mod h1:aSSvb/t6k1mPoxDqO4vJh6VOCGPwU4O0C2/Eqndh1Sc=
 github.com/joe-davidson1802/hotwirehandler v0.1.1 h1:Ws6k19FjrB4HOB4PWrlosJJvzeG6UTlKhBbkX8NGbJY=
 github.com/joe-davidson1802/hotwirehandler v0.1.1/go.mod h1:uAVBNkKxittt2ed0EGMidJWUhHOSkUCJU05+Taib21U=
+github.com/joe-davidson1802/turbo-templ v0.0.1 h1:g2SUwqkjkIrhnVqhwH2Phz0tDhOf2xa9gfEZ9YTgPEY=
+github.com/joe-davidson1802/turbo-templ v0.0.1/go.mod h1:EEq9iK3kSZ3fYDBhRPGNAJavt/qclK/UB+8JVrc8CS4=
 github.com/jstemmer/go-junit-report v0.0.0-20190106144839-af01ea7f8024/go.mod h1:6v2b51hI/fHJwM22ozAgKL4VKDeJcHhJFhtBdhmNjmU=
 github.com/jstemmer/go-junit-report v0.9.1/go.mod h1:Brl9GWCQeLvo8nXZwPNNblvFj/XSXhF0NWZEnDohbsk=
 github.com/kisielk/gotool v1.0.0/go.mod h1:XhKaO+MFFWcvkIS/tQcRk01m1F5IRFswLeQ+oQHNcck=

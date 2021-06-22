@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/joe-davidson1802/hotwirehandler"
+	"github.com/joe-davidson1802/turbo-templ/turbo"
 )
 
 type GetBasketHandler struct {
@@ -36,7 +37,14 @@ func (h GetBasketHandler) RenderPage(ctx context.Context, m hotwirehandler.Model
 
 	w.Header().Add("Content-Type", "text/html")
 
-	err := templates.BasketFrameComponent(mod).Render(ctx, w)
+	contents := templates.BasketComponent(mod)
+
+	frame := turbo.TurboFrame(turbo.TurboFrameOptions{
+		Id:       "basket",
+		Contents: &contents,
+	})
+
+	err := frame.Render(ctx, w)
 
 	return err
 }
@@ -46,7 +54,15 @@ func (h GetBasketHandler) RenderStream(ctx context.Context, m hotwirehandler.Mod
 
 	w.Header().Add("Content-Type", "text/vnd.turbo-stream.html")
 
-	err := templates.BasketFrameComponent(mod).Render(ctx, w)
+	contents := templates.BasketComponent(mod)
+
+	stream := turbo.TurboStream(turbo.TurboStreamOptions{
+		Action:   turbo.Update,
+		Target:   "basket",
+		Contents: &contents,
+	})
+
+	err := stream.Render(ctx, w)
 
 	return err
 }

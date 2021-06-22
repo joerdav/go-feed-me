@@ -4,29 +4,25 @@
 {% import "strconv" %}
 
 {% templ BasketComponent(b types.Basket) %}
-<turbo-stream action="update" target="basket">
-    <template>
-		<table>
-  			<caption>{%= "Basket	-	" %}<mark class="secondary">{%= "Basket data does not persist" %}</mark></caption>
-				<tr>
-					<th>{%= "Restaurant" %}</th>
-					<th>{%= "Item" %}</th>
-					<th>{%= "Quantity" %}</th>
-					<th>{%= "Price" %}</th>
-				</tr>
-				{% for _, r := range b.Restaurants %}
-					{% for _, i := range r.Items %}
-                        {% if i.Quantity != 0 %}
-      					<tr>
-      						<td>{%= r.Name %}</td>
-      						<td>{%= i.Name %}</td>
-      						<td>{%= strconv.Itoa(i.Quantity) %}</td>
-      						<td>{%= strconv.Itoa(i.Price * i.Quantity) %}</td>
-      					</tr>
-                        {% endif %}
-					{% endfor %}
+	<table>
+		<caption>{%= "Basket	-	" %}<mark class="secondary">{%= "Basket data does not persist" %}</mark></caption>
+			<tr>
+				<th>{%= "Restaurant" %}</th>
+				<th>{%= "Item" %}</th>
+				<th>{%= "Quantity" %}</th>
+				<th>{%= "Price" %}</th>
+			</tr>
+			{% for _, r := range b.Restaurants %}
+				{% for _, i := range r.Items %}
+					{% if i.Quantity != 0 %}
+					<tr>
+						<td>{%= r.Name %}</td>
+						<td>{%= i.Name %}</td>
+						<td>{%= strconv.Itoa(i.Quantity) %}</td>
+						<td>{%= strconv.Itoa(i.Price * i.Quantity) %}</td>
+					</tr>
+					{% endif %}
 				{% endfor %}
-		</table>
-	</template>
-</turbo-stream>
+			{% endfor %}
+	</table>
 {% endtempl %}
