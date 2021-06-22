@@ -11,6 +11,7 @@ import (
 
 	"github.com/gorilla/schema"
 	"github.com/joe-davidson1802/hotwirehandler"
+	"github.com/joe-davidson1802/turbo-templ/turbo"
 )
 
 var decoder = schema.NewDecoder()
@@ -83,7 +84,14 @@ func (h UpdateBasketHandler) RenderPage(ctx context.Context, m hotwirehandler.Mo
 
 	w.Header().Add("Content-Type", "text/html")
 
-	err := templates.BasketComponent(mod).Render(ctx, w)
+	contents := templates.BasketComponent(mod)
+
+	frame := turbo.TurboFrame(turbo.TurboFrameOptions{
+		Id:       "basket",
+		Contents: &contents,
+	})
+
+	err := frame.Render(ctx, w)
 
 	return err
 }
@@ -93,7 +101,15 @@ func (h UpdateBasketHandler) RenderStream(ctx context.Context, m hotwirehandler.
 
 	w.Header().Add("Content-Type", "text/vnd.turbo-stream.html")
 
-	err := templates.BasketComponent(mod).Render(ctx, w)
+	contents := templates.BasketComponent(mod)
+
+	stream := turbo.TurboStream(turbo.TurboStreamOptions{
+		Action:   turbo.Update,
+		Target:   "basket",
+		Contents: &contents,
+	})
+
+	err := stream.Render(ctx, w)
 
 	return err
 }
