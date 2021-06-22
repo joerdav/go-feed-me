@@ -40,8 +40,6 @@ github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/a-h/lexical v0.0.3 h1:hQQYIkORWX72ZuE3Jo8uh/OrBWSb+sgQPrl5LQJDMjk=
 github.com/a-h/lexical v0.0.3/go.mod h1:d73jw5cgKXuYypRozNBuxRNFrTWQ3y5hVMG7rUjh1Qw=
-github.com/a-h/templ v0.0.88 h1:IHMGCDZTex0i/HS2qF6i0TqegKqlmRPXbdnB+2/U76U=
-github.com/a-h/templ v0.0.88/go.mod h1:rDdQXbG0y8aIfIRSru0jGjfTm4R6KpHBi0XSsBt5YWg=
 github.com/a-h/templ v0.0.103 h1:9h4vhNfeOGblLND+6KRKLeDDpzfesE7//EG5D1Lx2EI=
 github.com/a-h/templ v0.0.103/go.mod h1:rDdQXbG0y8aIfIRSru0jGjfTm4R6KpHBi0XSsBt5YWg=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
@@ -137,7 +135,7 @@ github.com/ianlancetaylor/demangle v0.0.0-20181102032728-5e5cf60278f6/go.mod h1:
 github.com/ianlancetaylor/demangle v0.0.0-20200824232613-28f6c0f3b639/go.mod h1:aSSvb/t6k1mPoxDqO4vJh6VOCGPwU4O0C2/Eqndh1Sc=
 github.com/joe-davidson1802/hotwirehandler v0.1.1 h1:Ws6k19FjrB4HOB4PWrlosJJvzeG6UTlKhBbkX8NGbJY=
 github.com/joe-davidson1802/hotwirehandler v0.1.1/go.mod h1:uAVBNkKxittt2ed0EGMidJWUhHOSkUCJU05+Taib21U=
-github.com/joe-davidson1802/turbo-templ v0.0.2 h1:g2SUwqkjkIrhnVqhwH2Phz0tDhOf2xa9gfEZ9YTgPEY=
+github.com/joe-davidson1802/turbo-templ v0.0.2 h1:hMIsaW8vGBmXeWQF8TVPDPefpW9s5WaeB97xRkRHmZo=
 github.com/joe-davidson1802/turbo-templ v0.0.2/go.mod h1:EEq9iK3kSZ3fYDBhRPGNAJavt/qclK/UB+8JVrc8CS4=
 github.com/jstemmer/go-junit-report v0.0.0-20190106144839-af01ea7f8024/go.mod h1:6v2b51hI/fHJwM22ozAgKL4VKDeJcHhJFhtBdhmNjmU=
 github.com/jstemmer/go-junit-report v0.9.1/go.mod h1:Brl9GWCQeLvo8nXZwPNNblvFj/XSXhF0NWZEnDohbsk=
