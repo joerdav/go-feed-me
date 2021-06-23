@@ -57,7 +57,7 @@ func (h GetBasketHandler) RenderStream(ctx context.Context, m hotwirehandler.Mod
 	contents := templates.BasketComponent(mod)
 
 	stream := turbo.TurboStream(turbo.TurboStreamOptions{
-		Action:   turbo.Update,
+		Action:   turbo.UpdateAction,
 		Target:   "basket",
 		Contents: &contents,
 	})

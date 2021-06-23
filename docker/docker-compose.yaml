@@ -37,6 +37,8 @@ services:
     volumes:
       - ../src/container/:/app
   proxy:
-    build: ../src/proxy
+    build: .
+    volumes:
+      - ../src/goproxy/:/app
     ports:
       - "80:80"
