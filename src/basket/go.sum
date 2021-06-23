@@ -135,6 +135,8 @@ github.com/joe-davidson1802/hotwirehandler v0.1.1 h1:Ws6k19FjrB4HOB4PWrlosJJvzeG
 github.com/joe-davidson1802/hotwirehandler v0.1.1/go.mod h1:uAVBNkKxittt2ed0EGMidJWUhHOSkUCJU05+Taib21U=
 github.com/joe-davidson1802/turbo-templ v0.0.2 h1:hMIsaW8vGBmXeWQF8TVPDPefpW9s5WaeB97xRkRHmZo=
 github.com/joe-davidson1802/turbo-templ v0.0.2/go.mod h1:EEq9iK3kSZ3fYDBhRPGNAJavt/qclK/UB+8JVrc8CS4=
+github.com/joe-davidson1802/turbo-templ v0.0.3 h1:rJyDNFh8zu4GndZybWaFZdLv8PEU3MHSGQTIyS1Vbcc=
+github.com/joe-davidson1802/turbo-templ v0.0.3/go.mod h1:EEq9iK3kSZ3fYDBhRPGNAJavt/qclK/UB+8JVrc8CS4=
 github.com/jstemmer/go-junit-report v0.0.0-20190106144839-af01ea7f8024/go.mod h1:6v2b51hI/fHJwM22ozAgKL4VKDeJcHhJFhtBdhmNjmU=
 github.com/jstemmer/go-junit-report v0.9.1/go.mod h1:Brl9GWCQeLvo8nXZwPNNblvFj/XSXhF0NWZEnDohbsk=
 github.com/kisielk/gotool v1.0.0/go.mod h1:XhKaO+MFFWcvkIS/tQcRk01m1F5IRFswLeQ+oQHNcck=

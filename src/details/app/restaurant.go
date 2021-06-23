@@ -50,7 +50,14 @@ func (h RestaurantHandler) RenderPage(ctx context.Context, m hotwirehandler.Mode
 
 	w.Header().Add("Content-Type", "text/html")
 
-	err := templates.RestaurantComponent(h.Config, mod).Render(ctx, w)
+	content := templates.RestaurantComponent(h.Config, mod)
+
+	frame := turbo.TurboFrame(turbo.TurboFrameOptions{
+		Id:       "container",
+		Contents: &content,
+	})
+
+	err := frame.Render(ctx, w)
 
 	return err
 }

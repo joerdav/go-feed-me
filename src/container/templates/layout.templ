@@ -15,11 +15,11 @@
 		<main>
 			{%! NavTemplate(c.Apps) %}
 			<article>
-				{%! turbo.TurboFrame(turbo.TurboFrameOptions{Id: "container", Src: url}) %}
+				{%! turbo.TurboFrame(turbo.TurboFrameOptions{Id: "container", Src: url, Loading: turbo.EagerLoading}) %}
 			</article>
 		</main>
         <section>
-        	<turbo-frame data-turbo-permanent="true" id="basket" src="/apps/basket"></turbo-frame>
+			{%! turbo.TurboFrame(turbo.TurboFrameOptions{Id: "container", Src: "/apps/basket"}) %}
         </section>
 	</body>
 </html>
