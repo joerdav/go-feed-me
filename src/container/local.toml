@@ -1,4 +1,4 @@
-Listen = ":80"
+Port = ":80"
 [[app]]
 name = "Browse"
 url = "http://localhost:8085/restaurants"
