@@ -37,7 +37,7 @@ services:
     volumes:
       - ../src/container/:/app
   proxy:
-      image: joedavidson1802/moxy:latest
+      image: joedavidson1802/moxy:v0.2.0
       volumes:
       - ./moxy-config.toml:/app/defaults.toml
       ports:
