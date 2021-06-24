@@ -3,22 +3,15 @@ package app
 import (
 	"basket/templates"
 	"basket/types"
-	"context"
+	"log"
 	"net/http"
+	"strings"
 
-	"github.com/joe-davidson1802/hotwirehandler"
+	"github.com/a-h/templ"
 	"github.com/joe-davidson1802/turbo-templ/turbo"
 )
 
-type GetBasketHandler struct {
-	Config types.Config
-}
-
-func (h GetBasketHandler) CanHandleModel(m string) bool {
-	return m == types.Basket{}.ModelName()
-}
-
-func (h GetBasketHandler) HandleRequest(w http.ResponseWriter, r *http.Request) (error, hotwirehandler.Model) {
+func HandleGetBasketRequest(w http.ResponseWriter, r *http.Request) {
 	basket := []types.Restaurant{}
 
 	for _, res := range inmemorybasket {
@@ -27,42 +20,32 @@ func (h GetBasketHandler) HandleRequest(w http.ResponseWriter, r *http.Request) 
 
 	w.Header().Add("Cache-Control", "no-cache")
 
-	return nil, types.Basket{
+	contents := templates.BasketComponent(types.Basket{
 		Restaurants: basket,
+	})
+
+	var renderer templ.Component
+
+	if strings.Contains(r.Header.Get("Accept"), "vnd.turbo-stream.html") {
+		w.Header().Add("Content-Type", "text/vnd.turbo-stream.html")
+
+		renderer = turbo.TurboStream(turbo.TurboStreamOptions{
+			Action:   turbo.UpdateAction,
+			Target:   "basket",
+			Contents: &contents,
+		})
+	} else {
+		w.Header().Add("Content-Type", "text/html")
+
+		renderer = turbo.TurboFrame(turbo.TurboFrameOptions{
+			Id:       "basket",
+			Contents: &contents,
+		})
 	}
-}
 
-func (h GetBasketHandler) RenderPage(ctx context.Context, m hotwirehandler.Model, w http.ResponseWriter) error {
-	mod := m.(types.Basket)
+	err := renderer.Render(r.Context(), w)
 
-	w.Header().Add("Content-Type", "text/html")
-
-	contents := templates.BasketComponent(mod)
-
-	frame := turbo.TurboFrame(turbo.TurboFrameOptions{
-		Id:       "basket",
-		Contents: &contents,
-	})
-
-	err := frame.Render(ctx, w)
-
-	return err
-}
-
-func (h GetBasketHandler) RenderStream(ctx context.Context, m hotwirehandler.Model, w http.ResponseWriter) error {
-	mod := m.(types.Basket)
-
-	w.Header().Add("Content-Type", "text/vnd.turbo-stream.html")
-
-	contents := templates.BasketComponent(mod)
-
-	stream := turbo.TurboStream(turbo.TurboStreamOptions{
-		Action:   turbo.UpdateAction,
-		Target:   "basket",
-		Contents: &contents,
-	})
-
-	err := stream.Render(ctx, w)
-
-	return err
+	if err != nil {
+		log.Fatal(err)
+	}
 }

@@ -9,7 +9,6 @@ require (
 	github.com/gorilla/handlers v1.5.1
 	github.com/gorilla/mux v1.8.0
 	github.com/gorilla/schema v1.2.0
-	github.com/joe-davidson1802/hotwirehandler v0.1.1
 	github.com/joe-davidson1802/turbo-templ v0.0.3
 	github.com/motemen/go-loghttp v0.0.0-20170804080138-974ac5ceac27
 	github.com/motemen/go-nuts v0.0.0-20210609140242-c2fed52ea4d1 // indirect

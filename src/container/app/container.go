@@ -3,14 +3,15 @@ package app
 import (
 	"container/templates"
 	"container/types"
+	"log"
 	"net/http"
 )
 
-type HomeHandler struct {
+type ContainerHandler struct {
 	Config types.Config
 }
 
-func (h HomeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (h ContainerHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "text/html")
 
 	var url string
@@ -24,6 +25,6 @@ func (h HomeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	err := t.Render(r.Context(), w)
 
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 }

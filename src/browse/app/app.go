@@ -6,8 +6,6 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/joe-davidson1802/hotwirehandler"
-
 	"github.com/BurntSushi/toml"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -23,27 +21,23 @@ func Run(env string) {
 		config = env + ".toml"
 	}
 
-	fmt.Println("reading config...")
-
 	if _, err := toml.DecodeFile(config, &c); err != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Println("config loaded.")
 
 	r := mux.NewRouter().
 		PathPrefix("/apps/browse").
 		Subrouter()
 
-	r.Handle("/restaurants", hotwirehandler.New(ListerHandler{Config: c})).Methods("GET", "OPTIONS")
+	r.Handle("/restaurants", ListerHandler{Config: c}).Methods("GET", "OPTIONS")
 
 	corsObj := handlers.AllowedOrigins([]string{"*"})
 	methods := handlers.AllowedMethods([]string{"GET", "OPTIONS"})
 	headers := handlers.AllowedHeaders([]string{"turbo-frame"})
 
-	fmt.Printf("Listening: %s", c.Listen)
+	fmt.Printf("Listening: %s", c.Port)
 
-	err := http.ListenAndServe(c.Listen, handlers.CORS(corsObj, headers, methods)(r))
+	err := http.ListenAndServe(c.Port, handlers.CORS(corsObj, headers, methods)(r))
 
 	log.Fatal(err)
 }

@@ -1,0 +1,19 @@
+moxy_path = "/moxy"
+
+default_upstream = "http://container"
+
+[[upstream]]
+path_prefix = "/apps/basket"
+host = "http://basket"
+[[upstream]]
+path_prefix = "/apps/browse"
+host = "http://browse"
+[[upstream]]
+path_prefix = "/apps/details"
+host = "http://details"
+[[upstream]]
+path_prefix = "/apps/random"
+host = "http://random"
+[[upstream]]
+path_prefix = "/content"
+host = "http://content"

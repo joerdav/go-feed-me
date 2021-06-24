@@ -1,26 +1,21 @@
 package app
 
 import (
-	"context"
 	"details/restaurants"
 	"details/templates"
 	"details/types"
-	"errors"
+	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/joe-davidson1802/hotwirehandler"
+	"github.com/joe-davidson1802/turbo-templ/turbo"
 )
 
 type RestaurantHandler struct {
 	Config types.Config
 }
 
-func (h RestaurantHandler) CanHandleModel(m string) bool {
-	return m == types.Restaurant{}.ModelName()
-}
-
-func (h RestaurantHandler) HandleRequest(w http.ResponseWriter, r *http.Request) (error, hotwirehandler.Model) {
+func (h RestaurantHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
@@ -29,7 +24,8 @@ func (h RestaurantHandler) HandleRequest(w http.ResponseWriter, r *http.Request)
 	rs, err := repo.GetRestaurants()
 
 	if err != nil {
-		return err, nil
+		log.Fatal(err)
+		return
 	}
 
 	var restaurant types.Restaurant
@@ -41,27 +37,18 @@ func (h RestaurantHandler) HandleRequest(w http.ResponseWriter, r *http.Request)
 	}
 
 	w.Header().Add("Cache-Control", "no-cache")
-
-	return nil, restaurant
-}
-
-func (h RestaurantHandler) RenderPage(ctx context.Context, m hotwirehandler.Model, w http.ResponseWriter) error {
-	mod := m.(types.Restaurant)
-
 	w.Header().Add("Content-Type", "text/html")
 
-	content := templates.RestaurantComponent(h.Config, mod)
+	content := templates.RestaurantComponent(h.Config, restaurant)
 
 	frame := turbo.TurboFrame(turbo.TurboFrameOptions{
 		Id:       "container",
 		Contents: &content,
 	})
 
-	err := frame.Render(ctx, w)
+	err = frame.Render(r.Context(), w)
 
-	return err
-}
-
-func (h RestaurantHandler) RenderStream(ctx context.Context, m hotwirehandler.Model, w http.ResponseWriter) error {
-	return errors.New("Endpoint does not render streams")
+	if err != nil {
+		log.Fatal(err)
+	}
 }

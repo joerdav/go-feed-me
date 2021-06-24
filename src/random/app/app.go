@@ -20,13 +20,9 @@ func Run(env string) {
 		config = env + ".toml"
 	}
 
-	fmt.Println("reading config...")
-
 	if _, err := toml.DecodeFile(config, &c); err != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Println("config loaded.")
 
 	r := mux.NewRouter()
 
@@ -36,7 +32,9 @@ func Run(env string) {
 	methods := handlers.AllowedMethods([]string{"GET", "OPTIONS"})
 	headers := handlers.AllowedHeaders([]string{"turbo-frame"})
 
-	err := http.ListenAndServe(c.Listen, handlers.CORS(corsObj, headers, methods)(r))
+	fmt.Printf("Listening: %s", c.Port)
+
+	err := http.ListenAndServe(c.Port, handlers.CORS(corsObj, headers, methods)(r))
 
 	log.Fatal(err)
 }

@@ -4,12 +4,11 @@ import (
 	"browse/restaurants"
 	"browse/templates"
 	"browse/types"
-	"context"
-	"errors"
+	"log"
 	"net/http"
 	"strings"
 
-	"github.com/joe-davidson1802/hotwirehandler"
+	"github.com/a-h/templ"
 	"github.com/joe-davidson1802/turbo-templ/turbo"
 )
 
@@ -17,11 +16,7 @@ type ListerHandler struct {
 	Config types.Config
 }
 
-func (h ListerHandler) CanHandleModel(m string) bool {
-	return m == types.RestaurantList{}.ModelName()
-}
-
-func (h ListerHandler) HandleRequest(w http.ResponseWriter, r *http.Request) (error, hotwirehandler.Model) {
+func (h ListerHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	repo := restaurants.RestaurantRepository{Config: h.Config}
 
 	search := r.FormValue("search")
@@ -44,33 +39,26 @@ func (h ListerHandler) HandleRequest(w http.ResponseWriter, r *http.Request) (er
 	}
 
 	if err != nil {
-		return err, nil
+		log.Fatal(err)
+		return
 	}
 
 	w.Header().Add("Cache-Control", "no-cache")
 
-	return nil, types.RestaurantList{
-		Restaurants: resultList,
-	}
-}
+	var renderer templ.Component
 
-func (h ListerHandler) RenderPage(ctx context.Context, m hotwirehandler.Model, w http.ResponseWriter) error {
-	mod := m.(types.RestaurantList)
+	content := templates.ListerComponent(h.Config, resultList)
 
 	w.Header().Add("Content-Type", "text/html")
 
-	content := templates.ListerComponent(h.Config, mod.Restaurants)
-
-	frame := turbo.TurboFrame(turbo.TurboFrameOptions{
+	renderer = turbo.TurboFrame(turbo.TurboFrameOptions{
 		Id:       "container",
 		Contents: &content,
 	})
 
-	err := frame.Render(ctx, w)
+	err = renderer.Render(r.Context(), w)
 
-	return err
-}
-
-func (h ListerHandler) RenderStream(ctx context.Context, m hotwirehandler.Model, w http.ResponseWriter) error {
-	return errors.New("Endpoint does not render streams")
+	if err != nil {
+		log.Fatal(err)
+	}
 }

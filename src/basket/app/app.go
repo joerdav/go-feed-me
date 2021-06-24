@@ -9,7 +9,6 @@ import (
 	"github.com/BurntSushi/toml"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	"github.com/joe-davidson1802/hotwirehandler"
 )
 
 var inmemorybasket = map[string]types.Restaurant{
@@ -48,26 +47,24 @@ func Run(env string) {
 		config = env + ".toml"
 	}
 
-	fmt.Println("reading config...")
-
 	if _, err := toml.DecodeFile(config, &c); err != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Println("config loaded.")
 
 	r := mux.NewRouter().
 		PathPrefix("/apps").
 		Subrouter()
 
-	r.Handle("/basket", hotwirehandler.New(UpdateBasketHandler{Config: c})).Methods("PUT")
-	r.Handle("/basket", hotwirehandler.New(GetBasketHandler{Config: c})).Methods("GET")
+	r.Handle("/basket", UpdateBasketHandler{Config: c}).Methods("PUT")
+	r.HandleFunc("/basket", HandleGetBasketRequest).Methods("GET")
 
 	corsObj := handlers.AllowedOrigins([]string{"*"})
 	methods := handlers.AllowedMethods([]string{"PUT", "OPTIONS"})
 	headers := handlers.AllowedHeaders([]string{"turbo-frame"})
 
-	err := http.ListenAndServe(c.Listen, handlers.CORS(corsObj, headers, methods)(r))
+	fmt.Printf("Listening: %s", c.Port)
+
+	err := http.ListenAndServe(c.Port, handlers.CORS(corsObj, headers, methods)(r))
 
 	log.Fatal(err)
 }

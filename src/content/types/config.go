@@ -1,5 +1,5 @@
 package types
 
 type Config struct {
-	Listen string
+	Port string
 }

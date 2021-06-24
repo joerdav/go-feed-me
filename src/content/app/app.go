@@ -19,13 +19,9 @@ func Run(env string) {
 		config = env + ".toml"
 	}
 
-	fmt.Println("reading config...")
-
 	if _, err := toml.DecodeFile(config, &c); err != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Println("config loaded.")
 
 	r := mux.NewRouter()
 
@@ -33,7 +29,9 @@ func Run(env string) {
 		PathPrefix("/content/").
 		Handler(http.StripPrefix("/content/", http.FileServer(http.Dir("./public/"))))
 
-	err := http.ListenAndServe(c.Listen, r)
+	fmt.Printf("Listening: %s", c.Port)
+
+	err := http.ListenAndServe(c.Port, r)
 
 	log.Fatal(err)
 }

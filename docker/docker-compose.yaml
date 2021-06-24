@@ -37,8 +37,8 @@ services:
     volumes:
       - ../src/container/:/app
   proxy:
-    build: .
-    volumes:
-      - ../src/goproxy/:/app
-    ports:
-      - "80:80"
+      image: joedavidson1802/moxy:latest
+      volumes:
+      - ./moxy-config.toml:/app/defaults.toml
+      ports:
+          - "80:80"

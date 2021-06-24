@@ -4,13 +4,14 @@ import (
 	"basket/restaurants"
 	"basket/templates"
 	"basket/types"
-	"context"
 	"fmt"
+	"log"
 	"net/http"
 	"strconv"
+	"strings"
 
+	"github.com/a-h/templ"
 	"github.com/gorilla/schema"
-	"github.com/joe-davidson1802/hotwirehandler"
 	"github.com/joe-davidson1802/turbo-templ/turbo"
 )
 
@@ -20,15 +21,12 @@ type UpdateBasketHandler struct {
 	Config types.Config
 }
 
-func (h UpdateBasketHandler) CanHandleModel(m string) bool {
-	return m == types.Basket{}.ModelName()
-}
-
-func (h UpdateBasketHandler) HandleRequest(w http.ResponseWriter, r *http.Request) (error, hotwirehandler.Model) {
+func (h UpdateBasketHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 
 	if err != nil {
-		return err, nil
+		log.Fatal(err)
+		return
 	}
 
 	var restaurant types.Restaurant
@@ -36,7 +34,8 @@ func (h UpdateBasketHandler) HandleRequest(w http.ResponseWriter, r *http.Reques
 	err = decoder.Decode(&restaurant, r.PostForm)
 
 	if err != nil {
-		return err, nil
+		log.Fatal(err)
+		return
 	}
 
 	res := restaurants.RestaurantRepository{Config: h.Config}
@@ -44,13 +43,15 @@ func (h UpdateBasketHandler) HandleRequest(w http.ResponseWriter, r *http.Reques
 	result, err := res.GetRestaurants()
 
 	if err != nil {
-		return err, nil
+		log.Fatal(err)
+		return
 	}
 
 	id, err := strconv.Atoi(restaurant.Id)
 
 	if err != nil {
-		return err, nil
+		log.Fatal(err)
+		return
 	}
 
 	restaurantdata := result[id-1]
@@ -72,44 +73,34 @@ func (h UpdateBasketHandler) HandleRequest(w http.ResponseWriter, r *http.Reques
 
 	basket = append(basket, restaurant)
 
+	contents := templates.BasketComponent(types.Basket{
+		Restaurants: basket,
+	})
+
 	w.Header().Add("Cache-Control", "no-cache")
 
-	return nil, types.Basket{
-		Restaurants: basket,
+	var renderer templ.Component
+
+	if strings.Contains(r.Header.Get("Accept"), "vnd.turbo-stream.html") {
+		w.Header().Add("Content-Type", "text/vnd.turbo-stream.html")
+
+		renderer = turbo.TurboStream(turbo.TurboStreamOptions{
+			Action:   turbo.UpdateAction,
+			Target:   "basket",
+			Contents: &contents,
+		})
+	} else {
+		w.Header().Add("Content-Type", "text/html")
+
+		renderer = turbo.TurboFrame(turbo.TurboFrameOptions{
+			Id:       "basket",
+			Contents: &contents,
+		})
 	}
-}
 
-func (h UpdateBasketHandler) RenderPage(ctx context.Context, m hotwirehandler.Model, w http.ResponseWriter) error {
-	mod := m.(types.Basket)
+	err = renderer.Render(r.Context(), w)
 
-	w.Header().Add("Content-Type", "text/html")
-
-	contents := templates.BasketComponent(mod)
-
-	frame := turbo.TurboFrame(turbo.TurboFrameOptions{
-		Id:       "basket",
-		Contents: &contents,
-	})
-
-	err := frame.Render(ctx, w)
-
-	return err
-}
-
-func (h UpdateBasketHandler) RenderStream(ctx context.Context, m hotwirehandler.Model, w http.ResponseWriter) error {
-	mod := m.(types.Basket)
-
-	w.Header().Add("Content-Type", "text/vnd.turbo-stream.html")
-
-	contents := templates.BasketComponent(mod)
-
-	stream := turbo.TurboStream(turbo.TurboStreamOptions{
-		Action:   turbo.UpdateAction,
-		Target:   "basket",
-		Contents: &contents,
-	})
-
-	err := stream.Render(ctx, w)
-
-	return err
+	if err != nil {
+		log.Fatal(err)
+	}
 }

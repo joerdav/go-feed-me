@@ -6,8 +6,6 @@ type Restaurant struct {
 	Items []Item `schema:"items" json:"menu"`
 }
 
-func (m Restaurant) ModelName() string { return "Restaurant" }
-
 type Item struct {
 	Id       int    `schema:"id"`
 	Name     string `schema:"name" json:"item"`
@@ -18,6 +16,3 @@ type Item struct {
 type Basket struct {
 	Restaurants []Restaurant
 }
-
-func (m Basket) ModelName() string { return "Basket" }
-func (m Item) ModelName() string   { return "Item" }
