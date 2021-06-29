@@ -13,7 +13,7 @@
         <div class="row">
             {% for _, r := range rs %}
                 <div class="card">
-                    <a target="_top" href={%= "/details/restaurant/" + r.Id %}>
+                    <a target="_top" href={%= templ.URL("/details/restaurant/" + r.Id) %}>
                         <div class="section">
                             <h3 class="card-header">{%= r.Name %}</h3>
                         </div>

@@ -6,7 +6,7 @@
     <header class="row" data-turbo-permanent="true" id="nav">
         <span class="logo col-sm-3">{%= "Go Feed Me" %}</span>
         {% for _, a := range apps %}
-            <a class="button col-sm col-md" href={%= a.Url %}  target="_top">{%= a.Name %}</a>
+            <a class="button col-sm col-md" href={%= templ.URL(a.Url) %}  target="_top">{%= a.Name %}</a>
         {% endfor %}
     </header>
 {% endtempl %}
